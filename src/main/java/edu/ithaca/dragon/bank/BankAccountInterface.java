@@ -7,6 +7,8 @@ public interface BankAccountInterface {
     public double getBalance();
     public String getEmail();
     public void withdraw (double amount) throws InsufficientFundsException;
+    public void deposit(double amount);
+    public void transfer(double amount);
 
     public static boolean isEmailValid(String email) {
         if (email.indexOf('@') == -1) {
