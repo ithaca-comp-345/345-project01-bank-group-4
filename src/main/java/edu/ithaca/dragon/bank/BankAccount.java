@@ -6,15 +6,21 @@ public class BankAccount implements BankAccountInterface{
     private double balance;
 
     /**
-     * @throws IllegalArgumentException if email is invalid
+     * Creates a BankAccount object if email and amount are valid
+     * @param email account email address
+     * @param startingBalance account starting balance
      */
-    public BankAccount(String email, double startingBalance){
+    public BankAccount(String email, double startingBalance) {
         if (BankAccountInterface.isEmailValid(email)){
             this.email = email;
-            this.balance = startingBalance;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Email address: " + email + " is invalid, cannot create account");
+        }
+
+        if (BankAccountInterface.isAmountValid(startingBalance)) {
+            this.balance = startingBalance;
+        } else {
+            throw new IllegalArgumentException("Starting balance: " + startingBalance + " is invalid, cannot create account");
         }
     }
 
