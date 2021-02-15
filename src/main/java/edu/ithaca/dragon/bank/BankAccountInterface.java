@@ -8,7 +8,7 @@ public interface BankAccountInterface {
     public String getEmail();
     public void withdraw (double amount) throws InsufficientFundsException;
     public void deposit(double amount);
-    public void transfer(double amount);
+    public void transfer(BankAccount to, double amount) throws InsufficientFundsException;
 
     /**
      * Returns true if all chars in str are found in charSet, false otherwise
@@ -101,7 +101,7 @@ public interface BankAccountInterface {
             return true;
         }
     }
-    
+
     /**
      * Returns true if amount has 2 or fewer decimal places and is non-negative, false otherwise
      * @param amount value to check

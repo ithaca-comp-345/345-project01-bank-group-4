@@ -46,4 +46,33 @@ public class BankAccount implements BankAccountInterface{
             throw new InsufficientFundsException("Not enough money");
         }
     }
+
+    /**
+     * Adds amount to balance if amount is valid
+     * @param amount amount to deposit
+     */
+    public void deposit(double amount) {
+        if (BankAccountInterface.isAmountValid(amount)) {
+            balance += amount;
+        } else {
+            throw new IllegalArgumentException("amount must be non-negative and have 2 or fewer decimal places");
+        }
+    }
+
+    /**
+     * Subtracts amount from balance and deposits it into to if to and amount are valid
+     * @param to BankAccount to transfer to
+     * @param amount amount to transfer
+     * @throws InsufficientFundsException
+     */
+    public void transfer(BankAccount to, double amount) throws InsufficientFundsException {
+        if (to == null) {
+            throw new IllegalArgumentException("receiving BankAccount must not be null");
+        } else if (!BankAccountInterface.isAmountValid(amount)) {
+            throw new IllegalArgumentException("amount must be non-negative and have 2 or fewer decimal places");
+        } else {
+            withdraw(amount);  // throws InsufficientFundsException if amount > balance
+            to.deposit(amount);
+        }
+    }
 }
