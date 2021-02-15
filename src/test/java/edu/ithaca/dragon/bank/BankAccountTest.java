@@ -5,74 +5,74 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BankAccountTest {
-    // @Test
-    // void isAmountValidTest() {
-    //     // VALID (non-negative and <= 2 decimal places)
-    //     // integer component amount
-    //     assertTrue(BankAccount.isAmountValid(200));
+    @Test
+    void isAmountValidTest() {
+        // VALID (non-negative and <= 2 decimal places)
+        // integer component amount
+        assertTrue(BankAccountInterface.isAmountValid(200));
 
-    //     // 1 decimal place float component amount
-    //     assertTrue(BankAccount.isAmountValid(.4));
+        // 1 decimal place float component amount
+        assertTrue(BankAccountInterface.isAmountValid(.4));
 
-    //     // 2 decimal place float component amount
-    //     assertTrue(BankAccount.isAmountValid(.45));
+        // 2 decimal place float component amount
+        assertTrue(BankAccountInterface.isAmountValid(.45));
 
-    //     // integer and float components amount
-    //     assertTrue(BankAccount.isAmountValid(10.15));
+        // integer and float components amount
+        assertTrue(BankAccountInterface.isAmountValid(10.15));
 
-    //     // .01 amount -boundary case
-    //     assertTrue(BankAccount.isAmountValid(.01));
+        // .01 amount -boundary case
+        assertTrue(BankAccountInterface.isAmountValid(.01));
 
-    //     // 0 amount -boundary case
-    //     assertTrue(BankAccount.isAmountValid(0));
-
-
-    //     // INVALID
-
-    //     // NEGATIVE
-    //     // integer component amount
-    //     assertFalse(BankAccount.isAmountValid(-16));
-
-    //     // 1 decimal place float component amount
-    //     assertFalse(BankAccount.isAmountValid(-.5));
-
-    //     // 2 deciamal place float component amount
-    //     assertFalse(BankAccount.isAmountValid(-.42));
-
-    //     // integer and float components amount
-    //     assertFalse(BankAccount.isAmountValid(-19.50));
-
-    //     // -.01 amount -boundary case
-    //     assertFalse(BankAccount.isAmountValid(-.01));
+        // 0 amount -boundary case
+        assertTrue(BankAccountInterface.isAmountValid(0));
 
 
-    //     // DECIMAL PLACES > 2
-    //     // decimal place > 2 float component amount
-    //     assertFalse(BankAccount.isAmountValid(.36787944117));
+        // INVALID
 
-    //     // 3 decimal place float component amount -boundary case 
-    //     assertFalse(BankAccount.isAmountValid(.256));
+        // NEGATIVE
+        // integer component amount
+        assertFalse(BankAccountInterface.isAmountValid(-16));
 
-    //     // .009 amount -boundary case
-    //     assertFalse(BankAccount.isAmountValid(.009));
+        // 1 decimal place float component amount
+        assertFalse(BankAccountInterface.isAmountValid(-.5));
 
-    //     // integer and 3 decimal place float component amount
-    //     assertFalse(BankAccount.isAmountValid(32.125));
+        // 2 deciamal place float component amount
+        assertFalse(BankAccountInterface.isAmountValid(-.42));
+
+        // integer and float components amount
+        assertFalse(BankAccountInterface.isAmountValid(-19.50));
+
+        // -.01 amount -boundary case
+        assertFalse(BankAccountInterface.isAmountValid(-.01));
 
 
-    //     // NEGATIVE + DECIMAL PLACES > 2
-    //     // float component amount
-    //     assertFalse(BankAccount.isAmountValid(-.14159265359));
+        // DECIMAL PLACES > 2
+        // decimal place > 2 float component amount
+        assertFalse(BankAccountInterface.isAmountValid(.36787944117));
 
-    //     // integer and float component amount
-    //     assertFalse(BankAccount.isAmountValid(-602.1023));
+        // 3 decimal place float component amount -boundary case 
+        assertFalse(BankAccountInterface.isAmountValid(.256));
 
-    //     // -.001 amount -boundary case
-    //     assertFalse(BankAccount.isAmountValid(-.001));
+        // .009 amount -boundary case
+        assertFalse(BankAccountInterface.isAmountValid(.009));
 
-    //     // -.009 amount -boundary case
-    //     assertFalse(BankAccount.isAmountValid(-.009));
-    // }
+        // integer and 3 decimal place float component amount
+        assertFalse(BankAccountInterface.isAmountValid(32.125));
+
+
+        // NEGATIVE + DECIMAL PLACES > 2
+        // float component amount
+        assertFalse(BankAccountInterface.isAmountValid(-.14159265359));
+
+        // integer and float component amount
+        assertFalse(BankAccountInterface.isAmountValid(-602.1023));
+
+        // -.001 amount -boundary case
+        assertFalse(BankAccountInterface.isAmountValid(-.001));
+
+        // -.009 amount -boundary case
+        assertFalse(BankAccountInterface.isAmountValid(-.009));
+    }
 
     @Test
     void getBalanceTest() {
