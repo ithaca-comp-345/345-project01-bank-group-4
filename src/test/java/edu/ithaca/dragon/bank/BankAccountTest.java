@@ -94,7 +94,7 @@ class BankAccountTest {
     }
 
     @Test
-    void withdrawTest() throws InsufficientFundsException{
+    void withdrawTest() throws InsufficientFundsException {
         final double delta = .001;  // allowable difference between actual and expected values
 
         // VALID
@@ -374,7 +374,7 @@ class BankAccountTest {
     }
 
     @Test
-    void isEmailValidTest(){
+    void isEmailValidTest() {
         // VALID
         // normal cases
         assertTrue(BankAccountInterface.isEmailValid("abc-d@mail.com"));

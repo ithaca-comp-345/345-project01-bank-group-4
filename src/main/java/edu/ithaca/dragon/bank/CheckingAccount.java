@@ -1,10 +1,11 @@
 package edu.ithaca.dragon.bank;
 
-public class CheckingAccount extends BankAccount{
+public class CheckingAccount extends BankAccount {
 
     public CheckingAccount(String email, double startingBalance) {
         super(email, startingBalance);
-        // TODO Auto-generated constructor stub
     }
-    
+
+    // TODO
+
 }

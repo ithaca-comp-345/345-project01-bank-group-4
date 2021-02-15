@@ -11,7 +11,7 @@ public class BankAccount implements BankAccountInterface{
      * @param startingBalance account starting balance
      */
     public BankAccount(String email, double startingBalance) {
-        if (BankAccountInterface.isEmailValid(email)){
+        if (BankAccountInterface.isEmailValid(email)) {
             this.email = email;
         } else {
             throw new IllegalArgumentException("Email address: " + email + " is invalid, cannot create account");
@@ -24,11 +24,11 @@ public class BankAccount implements BankAccountInterface{
         }
     }
 
-    public double getBalance(){
+    public double getBalance() {
         return balance;
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return email;
     }
 
@@ -37,7 +37,7 @@ public class BankAccount implements BankAccountInterface{
      * @param amount value to withdraw from balance
      * @throws InsufficientFundsException
      */
-    public void withdraw (double amount) throws InsufficientFundsException{
+    public void withdraw (double amount) throws InsufficientFundsException {
         if (!BankAccountInterface.isAmountValid(amount)) {
             throw new IllegalArgumentException("amount must be non-negative and have 2 or fewer decimal places");
         } else if (amount <= balance) {
