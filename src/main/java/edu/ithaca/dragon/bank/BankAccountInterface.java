@@ -58,7 +58,7 @@ public interface BankAccountInterface {
      * @param email Address to verify
      * @return True if valid email, false otherwise
      */
-    default boolean isEmailValid(String email) {
+    public static boolean isEmailValid(String email) {
         // allowed character sets
         String alpha, digit, special;
         alpha = "abcdefghijklmnopqrstuvwxyz";
@@ -107,7 +107,7 @@ public interface BankAccountInterface {
      * @param amount value to check
      * @return true if amount is valid, false otherwise
      */
-    default boolean isAmountValid(double amount) {
+    public static boolean isAmountValid(double amount) {
         if (amount < 0) {
             return false;
         } else if (BigDecimal.valueOf(amount).scale() > 2) {

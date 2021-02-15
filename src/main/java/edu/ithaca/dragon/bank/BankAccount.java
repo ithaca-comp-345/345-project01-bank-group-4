@@ -11,13 +11,13 @@ public class BankAccount implements BankAccountInterface{
      * @param startingBalance account starting balance
      */
     public BankAccount(String email, double startingBalance) {
-        if (isEmailValid(email)){
+        if (BankAccountInterface.isEmailValid(email)){
             this.email = email;
         } else {
             throw new IllegalArgumentException("Email address: " + email + " is invalid, cannot create account");
         }
 
-        if (isAmountValid(startingBalance)) {
+        if (BankAccountInterface.isAmountValid(startingBalance)) {
             this.balance = startingBalance;
         } else {
             throw new IllegalArgumentException("Starting balance: " + startingBalance + " is invalid, cannot create account");
@@ -38,7 +38,7 @@ public class BankAccount implements BankAccountInterface{
      * @throws InsufficientFundsException
      */
     public void withdraw (double amount) throws InsufficientFundsException{
-        if (!isAmountValid(amount)) {
+        if (!BankAccountInterface.isAmountValid(amount)) {
             throw new IllegalArgumentException("amount must be non-negative and have 2 or fewer decimal places");
         } else if (amount <= balance) {
             balance -= amount;
@@ -52,7 +52,7 @@ public class BankAccount implements BankAccountInterface{
      * @param amount amount to deposit
      */
     public void deposit(double amount) {
-        if (isAmountValid(amount)) {
+        if (BankAccountInterface.isAmountValid(amount)) {
             balance += amount;
         } else {
             throw new IllegalArgumentException("amount must be non-negative and have 2 or fewer decimal places");
@@ -68,7 +68,7 @@ public class BankAccount implements BankAccountInterface{
     public void transfer(BankAccount to, double amount) throws InsufficientFundsException {
         if (to == null) {
             throw new IllegalArgumentException("receiving BankAccount must not be null");
-        } else if (!isAmountValid(amount)) {
+        } else if (!BankAccountInterface.isAmountValid(amount)) {
             throw new IllegalArgumentException("amount must be non-negative and have 2 or fewer decimal places");
         } else {
             withdraw(amount);  // throws InsufficientFundsException if amount > balance
