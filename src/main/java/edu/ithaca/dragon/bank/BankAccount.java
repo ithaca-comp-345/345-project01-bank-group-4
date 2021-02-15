@@ -1,6 +1,6 @@
 package edu.ithaca.dragon.bank;
 
-public class BankAccount {
+public class BankAccount implements BankAccountInterface{
 
     private String email;
     private double balance;
@@ -9,7 +9,7 @@ public class BankAccount {
      * @throws IllegalArgumentException if email is invalid
      */
     public BankAccount(String email, double startingBalance){
-        if (isEmailValid(email)){
+        if (BankAccountInterface.isEmailValid(email)){
             this.email = email;
             this.balance = startingBalance;
         }
@@ -35,16 +35,6 @@ public class BankAccount {
         }
         else {
             throw new InsufficientFundsException("Not enough money");
-        }
-    }
-
-
-    public static boolean isEmailValid(String email){
-        if (email.indexOf('@') == -1){
-            return false;
-        }
-        else {
-            return true;
         }
     }
 }
