@@ -377,98 +377,98 @@ class BankAccountTest {
     void isEmailValidTest(){
         // VALID
         // normal cases
-        assertTrue(BankAccount.isEmailValid("abc-d@mail.com"));
-        assertTrue(BankAccount.isEmailValid("abc.def@mail.com"));
-        assertTrue(BankAccount.isEmailValid("abc_def@mail.com"));
-        assertTrue(BankAccount.isEmailValid("abc.def@mail-archive.com"));
+        assertTrue(BankAccountInterface.isEmailValid("abc-d@mail.com"));
+        assertTrue(BankAccountInterface.isEmailValid("abc.def@mail.com"));
+        assertTrue(BankAccountInterface.isEmailValid("abc_def@mail.com"));
+        assertTrue(BankAccountInterface.isEmailValid("abc.def@mail-archive.com"));
 
         // single char prefix -boundary case
-        assertTrue(BankAccount.isEmailValid("a@domain.com"));
+        assertTrue(BankAccountInterface.isEmailValid("a@domain.com"));
         // single char low level domain -boundary case
-        assertTrue(BankAccount.isEmailValid("prefix@b.com"));
+        assertTrue(BankAccountInterface.isEmailValid("prefix@b.com"));
         // single char prefix and low level domain -boundary case
-        assertTrue(BankAccount.isEmailValid("a@b.com"));
+        assertTrue(BankAccountInterface.isEmailValid("a@b.com"));
 
         // special char after leading char in prefix -boundary case
-        assertTrue(BankAccount.isEmailValid("p_refix@domain.com"));
+        assertTrue(BankAccountInterface.isEmailValid("p_refix@domain.com"));
         // special char before tailing char in prefix -boundary case
-        assertTrue(BankAccount.isEmailValid("prefi.x@domain.com"));
+        assertTrue(BankAccountInterface.isEmailValid("prefi.x@domain.com"));
 
         // special char after leading char in prefix -boundary case
-        assertTrue(BankAccount.isEmailValid("prefix@d-omain.com"));
+        assertTrue(BankAccountInterface.isEmailValid("prefix@d-omain.com"));
         // special char before tailing char in prefix -boundary case
-        assertTrue(BankAccount.isEmailValid("prefix@domai-n.com"));
+        assertTrue(BankAccountInterface.isEmailValid("prefix@domai-n.com"));
         
         // 'almost' consecutive special characters in prefix -boundary case
-        assertTrue(BankAccount.isEmailValid("p_r.efix@domain.com"));
+        assertTrue(BankAccountInterface.isEmailValid("p_r.efix@domain.com"));
         // 'almost' consecutive special characters in domain -boundary case
-        assertTrue(BankAccount.isEmailValid("prefix@d-o-main.com"));
+        assertTrue(BankAccountInterface.isEmailValid("prefix@d-o-main.com"));
 
 
         // EMPTY
         // empty prefix
-        assertFalse(BankAccount.isEmailValid("@domain.com"));
-        assertFalse(BankAccount.isEmailValid("domain.com"));
+        assertFalse(BankAccountInterface.isEmailValid("@domain.com"));
+        assertFalse(BankAccountInterface.isEmailValid("domain.com"));
 
         // first part of domain empty
-        assertFalse(BankAccount.isEmailValid("foo@.bar"));
-        assertFalse(BankAccount.isEmailValid("prefix.do"));
+        assertFalse(BankAccountInterface.isEmailValid("foo@.bar"));
+        assertFalse(BankAccountInterface.isEmailValid("prefix.do"));
 
         // last part of domain empty -boundary cases
-        assertFalse(BankAccount.isEmailValid("abc@def."));
-        assertFalse(BankAccount.isEmailValid("aaa@xyz"));
+        assertFalse(BankAccountInterface.isEmailValid("abc@def."));
+        assertFalse(BankAccountInterface.isEmailValid("aaa@xyz"));
 
         // entire domain empty -boundary cases
-        assertFalse(BankAccount.isEmailValid("zoz@."));
-        assertFalse(BankAccount.isEmailValid("qwerty@"));
+        assertFalse(BankAccountInterface.isEmailValid("zoz@."));
+        assertFalse(BankAccountInterface.isEmailValid("qwerty@"));
 
         // missing sections -boundary cases
-        assertFalse( BankAccount.isEmailValid(""));
-        assertFalse( BankAccount.isEmailValid("@"));
-        assertFalse( BankAccount.isEmailValid("."));
-        assertFalse( BankAccount.isEmailValid("@."));
+        assertFalse( BankAccountInterface.isEmailValid(""));
+        assertFalse( BankAccountInterface.isEmailValid("@"));
+        assertFalse( BankAccountInterface.isEmailValid("."));
+        assertFalse( BankAccountInterface.isEmailValid("@."));
 
 
         // INVALID PREFIX
         // invalid characters
-        assertFalse(BankAccount.isEmailValid("inv@lid123@foo.cc"));
-        assertFalse(BankAccount.isEmailValid("is.wr*ong42@mail-archive.com"));
-        assertFalse(BankAccount.isEmailValid("!nc0rre(t.domain@abc.gov"));
-        assertFalse(BankAccount.isEmailValid("n*t_g**d@foo-bar.zzzz"));
+        assertFalse(BankAccountInterface.isEmailValid("inv@lid123@foo.cc"));
+        assertFalse(BankAccountInterface.isEmailValid("is.wr*ong42@mail-archive.com"));
+        assertFalse(BankAccountInterface.isEmailValid("!nc0rre(t.domain@abc.gov"));
+        assertFalse(BankAccountInterface.isEmailValid("n*t_g**d@foo-bar.zzzz"));
 
         // leading '_', '.', '-'
-        assertFalse(BankAccount.isEmailValid("_leadingunderscore@test.go"));
-        assertFalse(BankAccount.isEmailValid("-this.not@good-email.com"));
-        assertFalse(BankAccount.isEmailValid(".pre.fix@doma.in"));
-        assertFalse(BankAccount.isEmailValid("_@check.it"));
+        assertFalse(BankAccountInterface.isEmailValid("_leadingunderscore@test.go"));
+        assertFalse(BankAccountInterface.isEmailValid("-this.not@good-email.com"));
+        assertFalse(BankAccountInterface.isEmailValid(".pre.fix@doma.in"));
+        assertFalse(BankAccountInterface.isEmailValid("_@check.it"));
 
         // trailing '_', '.', '-'
-        assertFalse(BankAccount.isEmailValid("leadingunderscore_@test.go"));
-        assertFalse(BankAccount.isEmailValid("this.not-@good-email.com"));
-        assertFalse(BankAccount.isEmailValid("pre.fix.@doma.in"));
-        assertFalse(BankAccount.isEmailValid(".@check.it"));
+        assertFalse(BankAccountInterface.isEmailValid("leadingunderscore_@test.go"));
+        assertFalse(BankAccountInterface.isEmailValid("this.not-@good-email.com"));
+        assertFalse(BankAccountInterface.isEmailValid("pre.fix.@doma.in"));
+        assertFalse(BankAccountInterface.isEmailValid(".@check.it"));
 
 
         // INVALID DOMAIN
         // invalid characters
-        assertFalse(BankAccount.isEmailValid("domain@uh#oh.com"));
-        assertFalse(BankAccount.isEmailValid("foo-bar.baz@jun%.be"));
-        assertFalse(BankAccount.isEmailValid("abc@def^ghi.jklm"));
+        assertFalse(BankAccountInterface.isEmailValid("domain@uh#oh.com"));
+        assertFalse(BankAccountInterface.isEmailValid("foo-bar.baz@jun%.be"));
+        assertFalse(BankAccountInterface.isEmailValid("abc@def^ghi.jklm"));
 
         // leading '-'
-        assertFalse(BankAccount.isEmailValid("prefix@-abc.com"));
-        assertFalse(BankAccount.isEmailValid("prefix@-abc-def.uk"));
-        assertFalse(BankAccount.isEmailValid("prefix@-.com"));
+        assertFalse(BankAccountInterface.isEmailValid("prefix@-abc.com"));
+        assertFalse(BankAccountInterface.isEmailValid("prefix@-abc-def.uk"));
+        assertFalse(BankAccountInterface.isEmailValid("prefix@-.com"));
 
         // trailing '-'
-        assertFalse(BankAccount.isEmailValid("prefix@abc-.com"));
-        assertFalse(BankAccount.isEmailValid("prefix@abc.com-"));
-        assertFalse(BankAccount.isEmailValid("prefix@abc-def-.com"));
-        assertFalse(BankAccount.isEmailValid("prefix@abc-def.com-"));
+        assertFalse(BankAccountInterface.isEmailValid("prefix@abc-.com"));
+        assertFalse(BankAccountInterface.isEmailValid("prefix@abc.com-"));
+        assertFalse(BankAccountInterface.isEmailValid("prefix@abc-def-.com"));
+        assertFalse(BankAccountInterface.isEmailValid("prefix@abc-def.com-"));
 
         // last part of domain length < two characters
-        assertFalse(BankAccount.isEmailValid("abc@def.a"));
-        assertFalse(BankAccount.isEmailValid("abc@def-a.b"));
+        assertFalse(BankAccountInterface.isEmailValid("abc@def.a"));
+        assertFalse(BankAccountInterface.isEmailValid("abc@def-a.b"));
     }
 
     @Test
