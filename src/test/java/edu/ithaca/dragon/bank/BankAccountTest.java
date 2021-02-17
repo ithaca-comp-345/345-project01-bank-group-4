@@ -487,4 +487,15 @@ class BankAccountTest {
         assertThrows(IllegalArgumentException.class, ()-> new CheckingAccount("a@b.com", -52.999));
     }
 
+    @Test
+    void accrewInterestTest() {
+        SavingsAccount savings = new SavingsAccount("a@b.com", 100, 5); //basic use
+        savings.accrewInterest();
+        assertEquals(105, savings.getBalance());
+
+        SavingsAccount savings2 = new SavingsAccount("a@b.com", 0, 5); //balance is 0
+        savings2.accrewInterest();
+        assertEquals(0, savings2.getBalance());
+    }
+
 }
