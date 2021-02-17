@@ -1,6 +1,6 @@
 package edu.ithaca.dragon.bank;
 
-public class BankAccount implements BankAccountInterface{
+public abstract class BankAccount implements BankAccountInterface{
 
     private String email;
     private double balance;
