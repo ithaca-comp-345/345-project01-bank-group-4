@@ -3,12 +3,12 @@ package edu.ithaca.dragon.bank;
 public class SavingsAccount extends BankAccount {
     private double interestRate;
 
-    public SavingsAccount(String email, double startingBalance) {
+    public SavingsAccount(String email, double startingBalance, double interestRate) {
         super(email, startingBalance);
-        interestRate = 0.5;
+        this.interestRate = interestRate;
     }
 
-    public void accrewInterest(double amount) {
+    public void accrewInterest() {
         balance+=(balance*interestRate);
     }
 

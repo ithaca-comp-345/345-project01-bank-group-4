@@ -470,13 +470,6 @@ class BankAccountTest {
         assertFalse(BankAccountInterface.isEmailValid("abc@def.a"));
         assertFalse(BankAccountInterface.isEmailValid("abc@def-a.b"));
     }
-
-   @Test
-   void interestRateTest(){
-    SavingsAccount bankAccount = new SavingsAccount("a@b.com", 200);
-    assertEquals(0.5, bankAccount.getInterest());
-    assertEquals(300, bankAccount.getBalance());
-   }
    
     @Test
     void constructorTest() {
@@ -494,4 +487,25 @@ class BankAccountTest {
         assertThrows(IllegalArgumentException.class, ()-> new CheckingAccount("a@b.com", -52.999));
     }
 
+    @Test
+    void accrewInterestTest() {
+        final double delta = .001;
+
+        SavingsAccount savingsAccount = new SavingsAccount("a@b.com", 200, 0);
+        savingsAccount.accrewInterest();
+        assertEquals(200, savingsAccount.getBalance(), delta);
+
+        savingsAccount = new SavingsAccount("a@b.com", 200, 1);
+        savingsAccount.accrewInterest();
+        assertEquals(400, savingsAccount.getBalance(), delta);
+
+        savingsAccount = new SavingsAccount("a@b.com", 200, .1);
+        savingsAccount.accrewInterest();
+        assertEquals(220, savingsAccount.getBalance(), delta);
+
+        savingsAccount = new SavingsAccount("a@b.com", 200, .5);
+        assertEquals(0.5, savingsAccount.getInterest(), delta);
+        assertEquals(300, savingsAccount.getBalance(), delta);
+    
+    }
 }
