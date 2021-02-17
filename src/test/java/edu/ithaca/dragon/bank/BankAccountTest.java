@@ -470,7 +470,7 @@ class BankAccountTest {
         assertFalse(BankAccountInterface.isEmailValid("abc@def.a"));
         assertFalse(BankAccountInterface.isEmailValid("abc@def-a.b"));
     }
-
+   
     @Test
     void constructorTest() {
         BankAccount bankAccount = new CheckingAccount("a@b.com", 200);
@@ -489,13 +489,27 @@ class BankAccountTest {
 
     @Test
     void accrewInterestTest() {
-        SavingsAccount savings = new SavingsAccount("a@b.com", 100, 5); //basic use
+        final double delta = .001;
+
+        SavingsAccount savings = new SavingsAccount("a@b.com", 100, .05); //basic use
         savings.accrewInterest();
-        assertEquals(105, savings.getBalance());
+        assertEquals(105, savings.getBalance(), delta);
 
-        SavingsAccount savings2 = new SavingsAccount("a@b.com", 0, 5); //balance is 0
+        SavingsAccount savings2 = new SavingsAccount("a@b.com", 0, .05); //balance is 0
         savings2.accrewInterest();
-        assertEquals(0, savings2.getBalance());
-    }
+        assertEquals(0, savings2.getBalance(), delta);
 
+        SavingsAccount savingsAccount = new SavingsAccount("a@b.com", 200, 0);
+        savingsAccount.accrewInterest();
+        assertEquals(200, savingsAccount.getBalance(), delta);
+
+        savingsAccount = new SavingsAccount("a@b.com", 200, 1);
+        savingsAccount.accrewInterest();
+        assertEquals(400, savingsAccount.getBalance(), delta);
+
+        savingsAccount = new SavingsAccount("a@b.com", 200, .1);
+        savingsAccount.accrewInterest();
+        assertEquals(220, savingsAccount.getBalance(), delta);
+    
+    }
 }
