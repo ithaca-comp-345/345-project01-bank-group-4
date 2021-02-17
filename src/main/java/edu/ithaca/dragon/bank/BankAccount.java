@@ -2,8 +2,8 @@ package edu.ithaca.dragon.bank;
 
 public abstract class BankAccount implements BankAccountInterface{
 
-    private String email;
-    private double balance;
+    protected String email;
+    protected double balance;
 
     /**
      * Creates a BankAccount object if email and amount are valid
