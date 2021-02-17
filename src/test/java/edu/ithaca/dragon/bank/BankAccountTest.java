@@ -489,7 +489,18 @@ class BankAccountTest {
 
     @Test
     void accrewInterestTest() {
-        // TODO
-    }
+        final double delta = .001;
 
+        SavingsAccount savingsAccount = new SavingsAccount("a@b.com", 200, 0);
+        savingsAccount.accrewInterest();
+        assertEquals(200, savingsAccount.getBalance(), delta);
+
+        savingsAccount = new SavingsAccount("a@b.com", 200, 1);
+        savingsAccount.accrewInterest();
+        assertEquals(400, savingsAccount.getBalance(), delta);
+
+        savingsAccount = new SavingsAccount("a@b.com", 200, .1);
+        savingsAccount.accrewInterest();
+        assertEquals(220, savingsAccount.getBalance(), delta);
+    }
 }
