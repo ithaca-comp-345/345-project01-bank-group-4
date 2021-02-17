@@ -471,6 +471,13 @@ class BankAccountTest {
         assertFalse(BankAccountInterface.isEmailValid("abc@def-a.b"));
     }
 
+   @Test
+   void interestRateTest(){
+    SavingsAccount bankAccount = new SavingsAccount("a@b.com", 200);
+    assertEquals(0.5, bankAccount.getInterest());
+    assertEquals(300, bankAccount.getBalance());
+   }
+   
     @Test
     void constructorTest() {
         BankAccount bankAccount = new CheckingAccount("a@b.com", 200);
