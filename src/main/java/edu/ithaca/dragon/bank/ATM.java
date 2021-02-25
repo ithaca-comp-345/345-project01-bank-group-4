@@ -5,5 +5,4 @@ public class ATM extends Teller {
     public ATM(BankController bankController) {
         super(bankController);
     }
-    
 }
