@@ -11,4 +11,8 @@ public class SavingsAccount extends Account {
     public double getInterestRate() {
         return interestRate;
     }
+
+    public void accrewInterest() {
+        // TODO implement accrewInterest
+    }
 }
