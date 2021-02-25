@@ -4,22 +4,22 @@ import org.junit.jupiter.api.Test;
 
 public class AccountTest {
     @Test
-    public void ConstructorTest() {
+    public void constructorTest() {
 
     }
 
     @Test
-    public void WithdrawTest() {
+    public void withdrawTest() {
 
     }
 
     @Test
-    public void DepositTest() {
+    public void depositTest() {
 
     }
 
     @Test
-    public void TransferTest() {
+    public void transferTest() {
 
     }
 }
