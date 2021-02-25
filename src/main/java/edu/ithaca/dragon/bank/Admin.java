@@ -7,6 +7,10 @@ public class Admin {
         this.bankController = bankController;
     }
 
+    public BankController getBankController() {
+        return bankController;
+    }
+
     public double checkOverallAmount() {
         // TODO implement checkOverallAmount
         return 0;
