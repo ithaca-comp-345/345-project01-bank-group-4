@@ -23,8 +23,20 @@ public class AccountTest {
 
     }
 
-    // SavingsAccount specific Tests
+    // CheckingAccount specific tests
 
+    @Test
+    public void checkingAccountConstructorTest() {
+
+    }
+
+    // SavingsAccount specific tests
+
+    @Test
+    public void savingsAccountConstructorTest() {
+
+    }
+    
     @Test
     public void accrewInterestTest() {
 
