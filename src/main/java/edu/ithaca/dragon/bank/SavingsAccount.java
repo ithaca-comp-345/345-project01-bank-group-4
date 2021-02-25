@@ -7,4 +7,8 @@ public class SavingsAccount extends Account {
         super(balance);
         this.interestRate = interestRate;
     }
+
+    public double getInterestRate() {
+        return interestRate;
+    }
 }
