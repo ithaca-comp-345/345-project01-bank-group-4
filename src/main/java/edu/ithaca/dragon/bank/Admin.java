@@ -4,7 +4,11 @@ public class Admin {
     private BankController bankController;
 
     public Admin(BankController bankController) {
-        this.bankController = bankController;
+        if (bankController == null) {
+            throw new NullPointerException();
+        } else {
+            this.bankController = bankController;
+        }
     }
 
     public BankController getBankController() {
@@ -12,20 +16,18 @@ public class Admin {
     }
 
     public double checkOverallAmount() {
-        // TODO implement checkOverallAmount
-        return 0;
+        return bankController.checkOverallAmount();
     }
 
     public String checkSuspiciousActivity() {
-        // TODO implement checkSuspiciousActivity
-        return "";
+        return bankController.checkSuspiciousActivity();
     }
 
-    public void freeze(int accountId) {
-        // TODO implement freeze
+    public void setSuspicious(int accountId, boolean suspicious) {
+        bankController.setSuspicious(accountId, suspicious);
     }
 
-    public void unfreeze(int accountId) {
-        // TODO implement unfreeze
+    public void setFrozen(int accountId, boolean frozen) {
+        bankController.setFrozen(accountId, frozen);
     }
 }

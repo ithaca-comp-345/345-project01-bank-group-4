@@ -9,10 +9,15 @@ public class CentralBank {
     private List<Teller> tellers;
     
     public CentralBank(BankController bankController, Admin admin) {
-        this.bankController = bankController;
-        this.admin = admin;
-        tellers = new ArrayList<>();
-        // TODO add defaul teller
+        if (bankController == null || admin == null) {
+            throw new NullPointerException();
+        } else {
+            this.bankController = bankController;
+            this.admin = admin;
+            tellers = new ArrayList<>();
+            tellers.add(new ATM(bankController));
+            tellers.add(new HumanTeller(bankController));
+        }
     }
 
     public BankController getBankController() {
@@ -25,5 +30,15 @@ public class CentralBank {
 
     public List<Teller> getTellers() {
         return tellers;
+    }
+
+    public static void main(String[] args) {
+        BankController bankController = new BankController();
+        Admin admin = new Admin(bankController);
+
+        CentralBank centralBank = new CentralBank(bankController, admin);
+        Teller myTeller = centralBank.getTellers().get(1);
+        myTeller.confirmCredentials(-2);
+        System.out.println(myTeller.checkBalance());
     }
 }

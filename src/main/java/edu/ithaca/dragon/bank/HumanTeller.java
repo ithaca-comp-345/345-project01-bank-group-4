@@ -7,11 +7,10 @@ public class HumanTeller extends Teller {
     }
     
     public int createAccount(char accountType) {
-        // TODO implement createAccount
-        return 0;
+        return bankController.createAccount(accountType);
     }
 
     public void closeAccount() {
-        // TODO implement closeAccount
+        bankController.closeAccount(currAccountId);
     }
 }

@@ -13,6 +13,6 @@ public class SavingsAccount extends Account {
     }
 
     public void accrewInterest() {
-        // TODO implement accrewInterest
+        balance += balance * interestRate;
     }
 }

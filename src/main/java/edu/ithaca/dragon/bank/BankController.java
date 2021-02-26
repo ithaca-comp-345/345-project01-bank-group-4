@@ -8,7 +8,8 @@ public class BankController {
 
     public BankController() {
         accounts = new HashMap<>();
-        // TODO add default accounts
+        accounts.put(-3, new CheckingAccount(200));
+        accounts.put(-2, new SavingsAccount(200, .1));
     }
 
     public Map<Integer, Account> getAccounts() {
@@ -16,56 +17,112 @@ public class BankController {
     }
 
     public Account retrieveAccount(int accountId) {
-        // TODO implement retrieveAccount
-        return null;
+        Account account = accounts.get(accountId);
+        if (account == null) {
+            throw new NullPointerException();
+        } else {
+            return account;
+        }
     }
 
     public double checkBalance(int accountId) {
-        // TODO implement checkBalance
-        return 0;
+        Account account = accounts.get(accountId);
+        if (account == null) {
+            throw new NullPointerException();
+        } else {
+            return account.getBalance();
+        }
     }
 
     public void withdraw(int accountId, double amount) {
-        // TODO implement withdraw
+        Account account = accounts.get(accountId);
+        if (account == null) {
+            throw new NullPointerException();
+        } else {
+            account.withdraw(amount);
+        }
     }
 
     public void deposit(int accountId, double amount) {
-        // TODO implement deposit
+        Account account = accounts.get(accountId);
+        if (account == null) {
+            throw new NullPointerException();
+        } else {
+            account.deposit(amount);
+        }
     }
 
     public void transfer(int accountIdFrom, int accountIdTo, double amount) {
-        // TODO implement transfer
+        Account accountFrom = accounts.get(accountIdFrom);
+        Account accountTo = accounts.get(accountIdTo);
+        if (accountFrom == null || accountTo == null) {
+            throw new NullPointerException();
+        } else {
+            accountFrom.transfer(accountTo, amount);;
+        }
     }
 
     public String retrieveTransactionHistory(int accountId) {
-        // TODO implement retrieveTransactionHistory
-        return "";
+        Account account = accounts.get(accountId);
+        if (account == null) {
+            throw new NullPointerException();
+        } else {
+            return account.getTransactionHistory();
+        }
     }
 
     public int createAccount(char accountType) {
-        // TODO implement createAccount
-        return 0;
+        Account account;
+        if (accountType == 'c') {
+            account = new CheckingAccount(0);
+        } else if (accountType == 's') {
+            account = new SavingsAccount(0, 0);
+        } else {
+            throw new IllegalArgumentException();
+        }
+        int accountId = (int) (Math.random() * Integer.MAX_VALUE);
+        accounts.put(accountId, account);
+        return accountId;
     }
 
     public void closeAccount(int accountId) {
-        // TODO implement closeAccount
+        accounts.remove(accountId);
     }
 
     public double checkOverallAmount() {
-        // TODO implement checkOverallAmount
-        return 0;
+        double sum = 0;
+        for (Account account : accounts.values()) {
+            sum += account.getBalance();
+        }
+        return sum;
     }
 
     public String checkSuspiciousActivity() {
-        // TODO implement checkSuspicioiusActivity
-        return "";
+        String report = "";
+        for (Map.Entry<Integer, Account> entry : accounts.entrySet()) {
+            Account account = entry.getValue();
+            if (account.isSuspicious()) {
+                report += entry.getKey() + " : " + account.getTransactionHistory() + "\n";
+            }
+        }
+        return report;
     }
 
-    public void freeze(int accountId) {
-        // TODO implement freeze
+    public void setSuspicious(int accountId, boolean suspicious) {
+        Account account = accounts.get(accountId);
+        if (account == null) {
+            throw new NullPointerException();
+        } else {
+            account.setSuspicious(suspicious);
+        }
     }
 
-    public void unfreeze(int accountId) {
-        // TODO implement unfreeze
+    public void setFrozen(int accountId, boolean frozen) {
+        Account account = accounts.get(accountId);
+        if (account == null) {
+            throw new NullPointerException();
+        } else {
+            account.setFrozen(frozen);
+        }
     }
 }

@@ -1,45 +1,52 @@
 package edu.ithaca.dragon.bank;
 
 public abstract class Teller {
-    private BankController bankController;
-    private Account currAccount;
+    protected BankController bankController;
+    protected int currAccountId;
 
     public Teller(BankController bankController) {
-        this.bankController = bankController;
-        currAccount = null;
+        if (bankController == null) {
+            throw new NullPointerException();
+        } else {
+            this.bankController = bankController;
+            currAccountId = -1;
+        }
     }
 
     public BankController getBankController() {
         return bankController;
     }
 
-    public Account getCurrAccount() {
-        return currAccount;
+    public int getCurrAccountId() {
+        return currAccountId;
     }
 
     public void confirmCredentials(int accountId) {
-        // TODO implement confirmCredentials
+        Account account = bankController.retrieveAccount(accountId);
+        if (account == null) {
+            throw new NullPointerException();
+        } else {
+            currAccountId = accountId;
+        }
     }
 
     public double checkBalance() {
-        // TODO implement checkBalance
-        return 0;
+        return bankController.checkBalance(currAccountId);
     }
 
     public void withdraw(double amount) {
-        // TODO implement withdraw
+        bankController.withdraw(currAccountId, amount);
     }
 
     public void deposit(double amount) {
-        // TODO implement deposit
+        bankController.deposit(currAccountId, amount);
     }
 
-    public void transfer(int accountId, double amount) {
-        // TODO implement transfer
+    public void transfer(int accountIdTo, double amount) {
+        bankController.transfer(currAccountId, accountIdTo, amount);
     }
 
     public String retrieveTransactionHistory() {
-        // TODO implement retrieveTransactionHistory
-        return "";
+        return bankController.retrieveTransactionHistory(currAccountId);
     }
 }

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 public class AccountTest {
     @Test
     public void constructorTest() {
-
+        
     }
 
     @Test
@@ -28,7 +28,7 @@ public class AccountTest {
 
     @Test
     public void checkingAccountConstructorTest() {
-
+        
     }
 
     
