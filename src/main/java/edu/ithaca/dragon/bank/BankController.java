@@ -8,6 +8,7 @@ public class BankController {
 
     public BankController() {
         accounts = new HashMap<>();
+        // Adds default Accounts
         accounts.put(-3, new CheckingAccount(200));
         accounts.put(-2, new SavingsAccount(200, .1));
     }

@@ -15,6 +15,7 @@ public class CentralBank {
             this.bankController = bankController;
             this.admin = admin;
             tellers = new ArrayList<>();
+            // Add default Tellers
             tellers.add(new ATM(bankController));
             tellers.add(new HumanTeller(bankController));
         }
@@ -33,6 +34,7 @@ public class CentralBank {
     }
 
     public static void main(String[] args) {
+        // Text-based user interface
         BankController bankController = new BankController();
         Admin admin = new Admin(bankController);
 
