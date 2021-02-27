@@ -1,5 +1,7 @@
 package edu.ithaca.dragon.bank;
 
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
 
 public class BankControllerTest {
@@ -8,7 +10,7 @@ public class BankControllerTest {
     }
  
     @Test
-    public void getAccountsTest() {
+    public void getAccountsTest() { 
     }
  
     @Test
@@ -36,7 +38,12 @@ public class BankControllerTest {
     }
  
     @Test
-    public void createAccountTest() {
+    public void createCheckingTest() {
+    }
+
+    @Test
+    public void createSavingsTest() {
+
     }
  
     @Test

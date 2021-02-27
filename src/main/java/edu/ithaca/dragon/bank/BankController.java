@@ -33,7 +33,11 @@ public class BankController {
         return null;
     }
  
-    public int createAccount(char accountType) {
+    public int createChecking(double balance) {
+        return -1;
+    }
+
+    public int createSavings(double balance, double interest){
         return -1;
     }
  
