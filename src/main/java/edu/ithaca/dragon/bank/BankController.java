@@ -54,6 +54,10 @@ public class BankController {
  
     public void setSuspicious(int accountId, boolean suspicious) {
     }
+
+    public boolean isSuspicious(int accountId){
+        return false;
+    }
  
     public void setFrozen(int accountId, boolean frozen) {
     }
