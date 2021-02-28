@@ -119,36 +119,43 @@ public class AccountTest {
         account = new CheckingAccount(200);
         account.deposit(20);
         assertEquals(220, account.getBalance(), delta);
+        assertEquals("d 20.0 | ", account.getTransactionHistory());
 
         // positive 1 decimal place float component
         account = new CheckingAccount(200);
         account.deposit(.5);
         assertEquals(200.5, account.getBalance(), delta);
+        assertEquals("d 0.5 | ", account.getTransactionHistory());
 
         // positive 1 decimal place integer and float component
         account = new CheckingAccount(200);
         account.deposit(125.2);
         assertEquals(325.2, account.getBalance(), delta);
+        assertEquals("d 125.2 | ", account.getTransactionHistory());
 
         // positive 2 decimal place float component
         account = new CheckingAccount(200);
         account.deposit(.25);
         assertEquals(200.25, account.getBalance(), delta);
+        assertEquals("d 0.25 | ", account.getTransactionHistory());
 
         // positive 2 decimal place integer and float component
         account = new CheckingAccount(200);
         account.deposit(88.32);
         assertEquals(288.32, account.getBalance(), delta);
+        assertEquals("d 88.32 | ", account.getTransactionHistory());
 
         // 0 amount -boundary case
         account = new CheckingAccount(200);
         account.deposit(0);
         assertEquals(200, account.getBalance(), delta);
+        assertEquals("d 0.0 | ", account.getTransactionHistory());
 
         // .01 amount -boundary case
         account = new CheckingAccount(200);
         account.deposit(.01);
         assertEquals(200.01, account.getBalance(), delta);
+        assertEquals("d 0.01 | ", account.getTransactionHistory());
 
 
         // INVALID
