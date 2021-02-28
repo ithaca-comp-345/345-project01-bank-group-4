@@ -12,8 +12,8 @@ public class AdminTest {
         BankController bankController;
 
         // VALID
-
-        admin = new Admin(bankController = new BankController());
+        bankController = new BankController();
+        admin = new Admin(bankController);
         assertEquals(bankController, admin.getBankController());
 
         // INVALID
