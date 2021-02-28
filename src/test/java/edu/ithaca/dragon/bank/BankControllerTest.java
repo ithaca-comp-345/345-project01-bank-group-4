@@ -73,7 +73,7 @@ public class BankControllerTest {
         assertEquals(200, controller.retrieveAccount(acc2).getBalance());
 
         // @throws IllegalArgumentException if no account is found
-        assertThrows(IllegalArgumentException.class, () -> controller.retrieveAccount(999));
+        assertThrows(NullPointerException.class, () -> controller.retrieveAccount(999));
     }
  
     @Test
@@ -87,7 +87,7 @@ public class BankControllerTest {
         assertEquals(0, controller.checkBalance(acc4));
 
         // @throws IllegalArgumentException when account ID doesn't exist
-        assertThrows(IllegalArgumentException.class, () -> {controller.checkBalance(999);});
+        assertThrows(NullPointerException.class, () -> {controller.checkBalance(999);});
     }
  
     @Test

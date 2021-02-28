@@ -16,10 +16,16 @@ public class BankController {
     }
  
     public Account retrieveAccount(int accountId) {
+        if (!accounts.containsKey(accountId)) {
+            throw new NullPointerException();
+        }
         return accounts.get(accountId);
     }
  
     public double checkBalance(int accountId) {
+        if (!accounts.containsKey(accountId)) {
+            throw new NullPointerException();
+        }
         return accounts.get(accountId).getBalance();
     }
  
