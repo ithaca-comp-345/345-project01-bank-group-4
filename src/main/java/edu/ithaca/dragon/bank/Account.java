@@ -57,6 +57,12 @@ public abstract class Account {
     }
  
     public void deposit(double amount) {
+        if (!isAmountValid(amount)) {
+            throw new IllegalArgumentException();
+        } else {
+            balance += amount;
+            transactionHistory += "d " + amount + " | ";
+        }
     }
  
     public void transfer(Account account, double amount) {
