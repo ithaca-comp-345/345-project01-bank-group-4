@@ -1,5 +1,7 @@
 package edu.ithaca.dragon.bank;
-  
+
+import java.math.BigDecimal;
+
 public abstract class Account {
     protected double balance;
     protected String transactionHistory;
@@ -7,22 +9,30 @@ public abstract class Account {
     protected boolean frozen;
  
     public Account(double balance) {
+        if (!isAmountValid(balance)) {
+            throw new IllegalArgumentException();
+        } else {
+            this.balance = balance;
+            transactionHistory = "";
+            suspicious = false;
+            frozen = false;
+        }
     }
  
     public double getBalance() {
-        return -1;
+        return balance;
     }
  
     public String getTransactionHistory() {
-        return null;
+        return transactionHistory;
     }
  
     public boolean isSuspicious() {
-        return false;
+        return suspicious;
     }
      
     public boolean isFrozen() {
-        return false;
+        return frozen;
     }
  
     public void setSuspicious(boolean suspicious) {
@@ -32,7 +42,7 @@ public abstract class Account {
     }
  
     private boolean isAmountValid(double amount) {
-        return false;
+        return amount >= 0 && BigDecimal.valueOf(amount).scale() <= 2;
     }
  
     public void withdraw(double amount) {
