@@ -338,10 +338,10 @@ public class BankControllerTest {
         createTestAccounts();
         controller.setFrozen(acc1, true);
         //@throws AccountFrozenException wehn attempting to withdraw, deposit or transfer
-        assertThrows(AccountFrozenException.class, () -> controller.withdraw(acc1, 10));
-        assertThrows(AccountFrozenException.class, () -> controller.deposit(acc1, 10));
-        assertThrows(AccountFrozenException.class, () -> controller.transfer(acc1, acc2, 10));
-        assertThrows(AccountFrozenException.class, () -> controller.transfer(acc2, acc1, 10));
+        assertThrows(IllegalArgumentException.class, () -> controller.withdraw(acc1, 10));
+        assertThrows(IllegalArgumentException.class, () -> controller.deposit(acc1, 10));
+        assertThrows(IllegalArgumentException.class, () -> controller.transfer(acc1, acc2, 10));
+        assertThrows(IllegalArgumentException.class, () -> controller.transfer(acc2, acc1, 10));
 
         controller.setFrozen(acc1, false);
         // Check that these functionalities work after unfrozen

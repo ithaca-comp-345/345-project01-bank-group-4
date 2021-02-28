@@ -30,14 +30,21 @@ public class BankController {
     }
  
     public void withdraw(int accountId, double amount) {
+        if (accounts.get(accountId).isFrozen() == true) {
+            throw new IllegalArgumentException();
+        }
         accounts.get(accountId).withdraw(amount);
     }
  
     public void deposit(int accountId, double amount) {
+        if (accounts.get(accountId).isFrozen() == true) {
+            throw new IllegalArgumentException();
+        }
         accounts.get(accountId).deposit(amount);
     }
  
     public void transfer(int accountIdFrom, int accountIdTo, double amount) {
+        
     }
  
     public String retrieveTransactionHistory(int accountId) {
