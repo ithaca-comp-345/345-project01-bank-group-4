@@ -139,5 +139,36 @@ public class AccountTest {
 
     @Test
     public void accrewInterestTest() {
+        double delta = .001;
+
+        SavingsAccount savingsAccount;
+
+        savingsAccount = new SavingsAccount(100, .05);
+        savingsAccount.accrewInterest();
+        assertEquals(105, savingsAccount.getBalance(), delta);
+        savingsAccount.accrewInterest();
+        assertEquals(110.25, savingsAccount.getBalance(), delta);
+
+        // balance .01 -boundary case
+        savingsAccount = new SavingsAccount(.01, .03);
+        savingsAccount.accrewInterest();
+        assertEquals(.01, savingsAccount.getBalance(), delta);
+
+        // balance 0 -boundary case
+        savingsAccount = new SavingsAccount(0, .03);
+        savingsAccount.accrewInterest();
+        assertEquals(0, savingsAccount.getBalance(), delta);
+
+        // interestRate .01 -boundary case
+        savingsAccount = new SavingsAccount(100, .01);
+        savingsAccount.accrewInterest();
+        assertEquals(101, savingsAccount.getBalance(), delta);
+        savingsAccount.accrewInterest();
+        assertEquals(102.01, savingsAccount.getBalance(), delta);
+
+        // interestRate 0 -boundary case
+        savingsAccount = new SavingsAccount(200, 0);
+        savingsAccount.accrewInterest();
+        assertEquals(200, savingsAccount.getBalance(), delta);
     }
 }
