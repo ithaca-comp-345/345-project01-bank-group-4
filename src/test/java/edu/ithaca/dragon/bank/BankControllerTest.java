@@ -303,18 +303,18 @@ public class BankControllerTest {
     public void checkSuspiciousActivityTest() {
         createTestAccounts();
         controller.setSuspicious(acc1, true);
-        assertEquals("Suspicious Accounts: 1", controller.checkSuspiciousActivity());
+        assertEquals("Suspicious Accounts: " + acc1, controller.checkSuspiciousActivity());
         controller.setSuspicious(acc4, true);
-        assertEquals("Suspicious Accounts: 1, 4", controller.checkSuspiciousActivity());
+        assertEquals("Suspicious Accounts: " + acc1 + ", " + acc4, controller.checkSuspiciousActivity());
     }
  
     @Test
     public void setSuspiciousTest() {
         createTestAccounts();
         controller.setSuspicious(acc1, true);
-        assertEquals("Suspicious Accounts: 1", controller.checkSuspiciousActivity());
+        assertEquals("Suspicious Accounts: " + acc1, controller.checkSuspiciousActivity());
         controller.setSuspicious(acc4, true);
-        assertEquals("Suspicious Accounts: 1, 4", controller.checkSuspiciousActivity());
+        assertEquals("Suspicious Accounts: " + acc1 + ", " + acc4, controller.checkSuspiciousActivity());
 
         // @throws IllegalArgumentException when account ID input does not exist
         assertThrows(IllegalArgumentException.class, () -> controller.setSuspicious(999, true));
