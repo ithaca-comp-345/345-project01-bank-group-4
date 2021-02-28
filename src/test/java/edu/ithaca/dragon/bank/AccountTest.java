@@ -15,36 +15,43 @@ public class AccountTest {
         Account account = new CheckingAccount(200);
         account.withdraw(100);
         assertEquals(100, account.getBalance(), delta);
+        assertEquals("w 100.0 | ", account.getTransactionHistory());
 
         // withdraw integer leaving 0 -boundary case
         account = new CheckingAccount(200);
         account.withdraw(200);
         assertEquals(0, account.getBalance(), delta);
+        assertEquals("w 200.0 | ", account.getTransactionHistory());
 
         // withdraw float leaving 0 -boundary case
         account = new CheckingAccount(115.42);
         account.withdraw(115.42);
         assertEquals(0, account.getBalance(), delta);
+        assertEquals("w 115.42 | ", account.getTransactionHistory());
 
         // withdraw 0 -boundary case
         account = new CheckingAccount(200);
         account.withdraw(0);
         assertEquals(200, account.getBalance(), delta);
+        assertEquals("w 0.0 | ", account.getTransactionHistory());
 
         // withdraw 0 leaving 0 -boundary case
         account = new CheckingAccount(0);
         account.withdraw(0);
         assertEquals(0, account.getBalance(), delta);
+        assertEquals("w 0.0 | ", account.getTransactionHistory());
 
         // withdraw .01 -boundary case
         account = new CheckingAccount(200);
         account.withdraw(.01);
         assertEquals(199.99, account.getBalance(), delta);
+        assertEquals("w 0.01 | ", account.getTransactionHistory());
 
         // withdraw .01 leaving 0 -boundary case
         account = new CheckingAccount(.01);
         account.withdraw(.01);
         assertEquals(0, account.getBalance(), delta);
+        assertEquals("w 0.01 | ", account.getTransactionHistory());
 
 
         // INVALID
