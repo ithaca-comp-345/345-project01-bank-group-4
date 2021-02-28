@@ -53,13 +53,13 @@ public class AccountTest {
         account = new CheckingAccount(200);
         account.withdraw(.01);
         assertEquals(199.99, account.getBalance(), delta);
-        assertEquals("200.0 | 200.0 | w 0.01 | ", account.getTransactionHistory());
+        assertEquals("200.0 | w 0.01 | ", account.getTransactionHistory());
 
         // withdraw .01 leaving 0 -boundary case
         account = new CheckingAccount(.01);
         account.withdraw(.01);
         assertEquals(0, account.getBalance(), delta);
-        assertEquals("0.01 | 0.01 | w 0.01 | ", account.getTransactionHistory());
+        assertEquals("0.01 | w 0.01 | ", account.getTransactionHistory());
 
         // INVALID
         // withdraw negative integer amount
@@ -140,7 +140,7 @@ public class AccountTest {
         account = new CheckingAccount(200);
         account.deposit(125.2);
         assertEquals(325.2, account.getBalance(), delta);
-        assertEquals("125.2 | d 125.2 | ", account.getTransactionHistory());
+        assertEquals("200.0 | d 125.2 | ", account.getTransactionHistory());
 
         // positive 2 decimal place float component
         account = new CheckingAccount(200);
@@ -352,7 +352,7 @@ public class AccountTest {
         // transfer to null CheckingAccount
         CheckingAccount f5 = new CheckingAccount(200);
         CheckingAccount t5 = null;
-        assertThrows(IllegalArgumentException.class, () -> f5.transfer(t5, -.01));
+        assertThrows(NullPointerException.class, () -> f5.transfer(t5, -.01));
         assertEquals(200, f5.getBalance(), delta);
         assertEquals("200.0 | ", f5.getTransactionHistory());
     }
