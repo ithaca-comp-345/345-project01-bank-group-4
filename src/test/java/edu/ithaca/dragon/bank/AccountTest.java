@@ -37,18 +37,6 @@ public class AccountTest {
         assertEquals(0, account.getBalance(), delta);
         assertEquals("115.42 | w 115.42 | ", account.getTransactionHistory());
 
-        // withdraw 0 -boundary case
-        account = new CheckingAccount(200);
-        account.withdraw(0);
-        assertEquals(200, account.getBalance(), delta);
-        assertEquals("200.0 | w 0.0 | ", account.getTransactionHistory());
-
-        // withdraw 0 leaving 0 -boundary case
-        account = new CheckingAccount(0);
-        account.withdraw(0);
-        assertEquals(0, account.getBalance(), delta);
-        assertEquals("0.0 | w 0.0 | ", account.getTransactionHistory());
-
         // withdraw .01 -boundary case
         account = new CheckingAccount(200);
         account.withdraw(.01);
@@ -63,58 +51,64 @@ public class AccountTest {
 
         // INVALID
         // withdraw negative integer amount
-        final CheckingAccount a = new CheckingAccount(200);
+        final Account a = new CheckingAccount(200);
         assertThrows(IllegalArgumentException.class, () -> a.withdraw(-100));
         assertEquals(200, a.getBalance(), delta);
         assertEquals("200.0 | ", a.getTransactionHistory());
 
         // withdraw negative float amount
-        final CheckingAccount b = new CheckingAccount(200);
+        final Account b = new CheckingAccount(200);
         assertThrows(IllegalArgumentException.class, () -> b.withdraw(-10.20));
         assertEquals(200, b.getBalance(), delta);
         assertEquals("200.0 | ", b.getTransactionHistory());
 
         // withdraw -.01 -boundary case
-        final CheckingAccount c = new CheckingAccount(200);
+        final Account c = new CheckingAccount(200);
         assertThrows(IllegalArgumentException.class, () -> c.withdraw(-.01));
         assertEquals(200, c.getBalance(), delta);
         assertEquals("200.0 | ", c.getTransactionHistory());
 
-        // withdraw amount greater than balance
-        final CheckingAccount d = new CheckingAccount(200);
-        assertThrows(IllegalArgumentException.class, () -> d.withdraw(300));
+        // withdraw 0 -boundary case
+        final Account d = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> d.withdraw(0));
         assertEquals(200, d.getBalance(), delta);
         assertEquals("200.0 | ", d.getTransactionHistory());
 
-        // withdraw amount .01 greater than balance -boundary case
-        final CheckingAccount e = new CheckingAccount(200);
-        assertThrows(IllegalArgumentException.class, () -> e.withdraw(200.01));
-        assertEquals(200, e.getBalance(), delta);
-        assertEquals("200.0 | ", e.getTransactionHistory());
-
-        // withdraw float component decimal place > 2
-        final CheckingAccount f = new CheckingAccount(200);
-        assertThrows(IllegalArgumentException.class, () -> f.withdraw(.248));
+        // withdraw amount greater than balance
+        final Account f = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> f.withdraw(300));
         assertEquals(200, f.getBalance(), delta);
         assertEquals("200.0 | ", f.getTransactionHistory());
 
-        // withdraw integer and float component decimal place > 2
-        final CheckingAccount g = new CheckingAccount(200);
-        assertThrows(IllegalArgumentException.class, () -> g.withdraw(20.091));
+        // withdraw amount .01 greater than balance -boundary case
+        final Account g = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> g.withdraw(200.01));
         assertEquals(200, g.getBalance(), delta);
         assertEquals("200.0 | ", g.getTransactionHistory());
 
-        // withdraw negative float component decimal place > 2
-        final CheckingAccount h = new CheckingAccount(200);
-        assertThrows(IllegalArgumentException.class, () -> h.withdraw(-.009));
+        // withdraw float component decimal place > 2
+        final Account h = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> h.withdraw(.248));
         assertEquals(200, h.getBalance(), delta);
         assertEquals("200.0 | ", h.getTransactionHistory());
 
-        // withdraw negative integer and float component decimal place > 2
-        final CheckingAccount i = new CheckingAccount(200);
-        assertThrows(IllegalArgumentException.class, () -> i.withdraw(-20.1234));
+        // withdraw integer and float component decimal place > 2
+        final Account i = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> i.withdraw(20.091));
         assertEquals(200, i.getBalance(), delta);
         assertEquals("200.0 | ", i.getTransactionHistory());
+
+        // withdraw negative float component decimal place > 2
+        final Account j = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> j.withdraw(-.009));
+        assertEquals(200, j.getBalance(), delta);
+        assertEquals("200.0 | ", j.getTransactionHistory());
+
+        // withdraw negative integer and float component decimal place > 2
+        final Account k = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> k.withdraw(-20.1234));
+        assertEquals(200, k.getBalance(), delta);
+        assertEquals("200.0 | ", k.getTransactionHistory());
     }
  
     @Test
@@ -154,12 +148,6 @@ public class AccountTest {
         assertEquals(288.32, account.getBalance(), delta);
         assertEquals("200.0 | d 88.32 | ", account.getTransactionHistory());
 
-        // 0 amount -boundary case
-        account = new CheckingAccount(200);
-        account.deposit(0);
-        assertEquals(200, account.getBalance(), delta);
-        assertEquals("200.0 | d 0.0 | ", account.getTransactionHistory());
-
         // .01 amount -boundary case
         account = new CheckingAccount(200);
         account.deposit(.01);
@@ -169,94 +157,100 @@ public class AccountTest {
 
         // INVALID
 
-        // NEGATIVE
+        // NONPOSITIVE
         // negative integer component
-        final CheckingAccount a = new CheckingAccount(200);
+        final Account a = new CheckingAccount(200);
         assertThrows(IllegalArgumentException.class, () -> a.deposit(-10));
         assertEquals(200, a.getBalance(), delta);
         assertEquals("200.0 | ", a.getTransactionHistory());
 
         // negative 1 place float component
-        final CheckingAccount b = new CheckingAccount(200);
+        final Account b = new CheckingAccount(200);
         assertThrows(IllegalArgumentException.class, () -> b.deposit(-.5));
         assertEquals(200, b.getBalance(), delta);
         assertEquals("200.0 | ", b.getTransactionHistory());
 
         // negative 1 place integer and float component
-        final CheckingAccount c = new CheckingAccount(200);
+        final Account c = new CheckingAccount(200);
         assertThrows(IllegalArgumentException.class, () -> c.deposit(-1.1));
         assertEquals(200, c.getBalance(), delta);
         assertEquals("200.0 | ", c.getTransactionHistory());
 
         // negative 2 place float component
-        final CheckingAccount d = new CheckingAccount(200);
+        final Account d = new CheckingAccount(200);
         assertThrows(IllegalArgumentException.class, () -> d.deposit(-.75));
         assertEquals(200, d.getBalance(), delta);
         assertEquals("200.0 | ", d.getTransactionHistory());
 
         // negative 2 place integer and float component
-        final CheckingAccount e = new CheckingAccount(200);
+        final Account e = new CheckingAccount(200);
         assertThrows(IllegalArgumentException.class, () -> e.deposit(-6.23));
         assertEquals(200, e.getBalance(), delta);
         assertEquals("200.0 | ", e.getTransactionHistory());
 
         // -.01 amount -boundary case
-        final CheckingAccount f = new CheckingAccount(200);
+        final Account f = new CheckingAccount(200);
         assertThrows(IllegalArgumentException.class, () -> f.deposit(-.01));
         assertEquals(200, f.getBalance(), delta);
         assertEquals("200.0 | ", f.getTransactionHistory());
+        
+        // 0 amount -boundary case
+        final Account g = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> g.deposit(0));
+        assertEquals(200, g.getBalance(), delta);
+        assertEquals("200.0 | ", g.getTransactionHistory());
 
 
         // DECIMAL PLACES > 2
         // decimal place > 2 float component amount
-        final CheckingAccount g = new CheckingAccount(200);
-        assertThrows(IllegalArgumentException.class, () -> g.deposit(.121212121212));
-        assertEquals(200, g.getBalance(), delta);
-        assertEquals("200.0 | ", g.getTransactionHistory());
-
-        // 3 decimal place float component amount -boundary case
-        final CheckingAccount h = new CheckingAccount(200);
-        assertThrows(IllegalArgumentException.class, () -> h.deposit(.789));
+        final Account h = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> h.deposit(.121212121212));
         assertEquals(200, h.getBalance(), delta);
         assertEquals("200.0 | ", h.getTransactionHistory());
 
-        // .009 amount -boundary case
-        final CheckingAccount i = new CheckingAccount(200);
-        assertThrows(IllegalArgumentException.class, () -> i.deposit(.009));
+        // 3 decimal place float component amount -boundary case
+        final Account i = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> i.deposit(.789));
         assertEquals(200, i.getBalance(), delta);
         assertEquals("200.0 | ", i.getTransactionHistory());
 
-        // integer and 3 decimal place float component amount
-        final CheckingAccount j = new CheckingAccount(200);
-        assertThrows(IllegalArgumentException.class, () -> j.deposit(793.539));
+        // .009 amount -boundary case
+        final Account j = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> j.deposit(.009));
         assertEquals(200, j.getBalance(), delta);
         assertEquals("200.0 | ", j.getTransactionHistory());
+
+        // integer and 3 decimal place float component amount
+        final Account k = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> k.deposit(793.539));
+        assertEquals(200, k.getBalance(), delta);
+        assertEquals("200.0 | ", k.getTransactionHistory());
 
 
         // NEGATIVE + DECIMAL PLACES > 2
         // float component amount
-        final CheckingAccount k = new CheckingAccount(200);
-        assertThrows(IllegalArgumentException.class, () -> k.deposit(-.71828));
-        assertEquals(200, k.getBalance(), delta);
-        assertEquals("200.0 | ", k.getTransactionHistory());
-
-        // integer and float component amount
-        final CheckingAccount l = new CheckingAccount(200);
-        assertThrows(IllegalArgumentException.class, () -> l.deposit(-123.4556));
+        final Account l = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> l.deposit(-.71828));
         assertEquals(200, l.getBalance(), delta);
         assertEquals("200.0 | ", l.getTransactionHistory());
 
-        // -.001 amount -boundary case
-        final CheckingAccount m = new CheckingAccount(200);
-        assertThrows(IllegalArgumentException.class, () -> m.deposit(-.001));
+        // integer and float component amount
+        final Account m = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> m.deposit(-123.4556));
         assertEquals(200, m.getBalance(), delta);
         assertEquals("200.0 | ", m.getTransactionHistory());
 
-        // -.009 amount -boundary case
-        final CheckingAccount n = new CheckingAccount(200);
-        assertThrows(IllegalArgumentException.class, () -> n.deposit(-.009));
+        // -.001 amount -boundary case
+        final Account n = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> n.deposit(-.001));
         assertEquals(200, n.getBalance(), delta);
         assertEquals("200.0 | ", n.getTransactionHistory());
+
+        // -.009 amount -boundary case
+        final Account o = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> o.deposit(-.009));
+        assertEquals(200, o.getBalance(), delta);
+        assertEquals("200.0 | ", o.getTransactionHistory());
     }
  
     @Test
@@ -284,15 +278,6 @@ public class AccountTest {
         assertEquals(400, to.getBalance(), delta);
         assertEquals("200.0 | d 200.0 | ", to.getTransactionHistory());
 
-        // transfer 0 -boundary case
-        from = new CheckingAccount(200);
-        to = new CheckingAccount(200);
-        from.transfer(to, 0);
-        assertEquals(200, from.getBalance(), delta);
-        assertEquals("200.0 | w 0.0 | ", from.getTransactionHistory());
-        assertEquals(200, to.getBalance(), delta);
-        assertEquals("200.0 | d 0.0 | ", to.getTransactionHistory());
-
         // transfer .01 -boundary case
         from = new CheckingAccount(200);
         to = new CheckingAccount(200);
@@ -314,8 +299,8 @@ public class AccountTest {
 
         // INVALID
         // transfer amount larger than balance
-        CheckingAccount f1 = new CheckingAccount(200);
-        CheckingAccount t1 = new CheckingAccount(200);
+        Account f1 = new CheckingAccount(200);
+        Account t1 = new CheckingAccount(200);
         assertThrows(IllegalArgumentException.class, () -> f1.transfer(t1, 300));
         assertEquals(200, f1.getBalance(), delta);
         assertEquals("200.0 | ", f1.getTransactionHistory());
@@ -323,38 +308,47 @@ public class AccountTest {
         assertEquals("200.0 | ", t1.getTransactionHistory());
 
         // transfer .01 more than balance -boundary case
-        CheckingAccount f2 = new CheckingAccount(200);
-        CheckingAccount t2 = new CheckingAccount(200);
+        Account f2 = new CheckingAccount(200);
+        Account t2 = new CheckingAccount(200);
         assertThrows(IllegalArgumentException.class, () -> f2.transfer(t2, 200.01));
         assertEquals(200, f2.getBalance(), delta);
         assertEquals("200.0 | ", f2.getTransactionHistory());
         assertEquals(200, t2.getBalance(), delta);
         assertEquals("200.0 | ", t2.getTransactionHistory());
 
-        // transfer negative amount
-        CheckingAccount f3 = new CheckingAccount(200);
-        CheckingAccount t3 = new CheckingAccount(200);
-        assertThrows(IllegalArgumentException.class, () -> f3.transfer(t3, -20));
+        // transfer 0 -boundary case
+        Account f3 = new CheckingAccount(200);
+        Account t3 = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> f3.transfer(t3, 0));
         assertEquals(200, f3.getBalance(), delta);
         assertEquals("200.0 | ", f3.getTransactionHistory());
         assertEquals(200, t3.getBalance(), delta);
         assertEquals("200.0 | ", t3.getTransactionHistory());
 
-        // transfer -.01 -boundary case
-        CheckingAccount f4 = new CheckingAccount(200);
-        CheckingAccount t4 = new CheckingAccount(200);
-        assertThrows(IllegalArgumentException.class, () -> f4.transfer(t4, -.01));
+        // transfer negative amount
+        Account f4 = new CheckingAccount(200);
+        Account t4 = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> f4.transfer(t4, -20));
         assertEquals(200, f4.getBalance(), delta);
         assertEquals("200.0 | ", f4.getTransactionHistory());
         assertEquals(200, t4.getBalance(), delta);
         assertEquals("200.0 | ", t4.getTransactionHistory());
 
-        // transfer to null CheckingAccount
-        CheckingAccount f5 = new CheckingAccount(200);
-        CheckingAccount t5 = null;
-        assertThrows(NullPointerException.class, () -> f5.transfer(t5, -.01));
+        // transfer -.01 -boundary case
+        Account f5 = new CheckingAccount(200);
+        Account t5 = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> f5.transfer(t5, -.01));
         assertEquals(200, f5.getBalance(), delta);
         assertEquals("200.0 | ", f5.getTransactionHistory());
+        assertEquals(200, t5.getBalance(), delta);
+        assertEquals("200.0 | ", t5.getTransactionHistory());
+
+        // transfer to null CheckingAccount
+        Account f6 = new CheckingAccount(200);
+        Account t6 = null;
+        assertThrows(NullPointerException.class, () -> f6.transfer(t6, -.01));
+        assertEquals(200, f6.getBalance(), delta);
+        assertEquals("200.0 | ", f6.getTransactionHistory());
     }
 
 
@@ -430,19 +424,19 @@ public class AccountTest {
         assertEquals(false, savingsAccount.isSuspicious());
         assertEquals(false, savingsAccount.isFrozen());
 
-        // balance 0 -boundary case
-        savingsAccount = new SavingsAccount(0, .03);
-        assertEquals(0, savingsAccount.getBalance(), delta);
-        assertEquals(.03, savingsAccount.getInterestRate(), delta);
-        assertEquals("0.0 | ", savingsAccount.getTransactionHistory());
-        assertEquals(false, savingsAccount.isSuspicious());
-        assertEquals(false, savingsAccount.isFrozen());
-
         // interestRate .01 -boundary case
         savingsAccount = new SavingsAccount(200, .01);
         assertEquals(200, savingsAccount.getBalance(), delta);
         assertEquals(.01, savingsAccount.getInterestRate(), delta);
         assertEquals("200.0 | ", savingsAccount.getTransactionHistory());
+        assertEquals(false, savingsAccount.isSuspicious());
+        assertEquals(false, savingsAccount.isFrozen());
+
+        // balance 0 -boundary case
+        savingsAccount = new SavingsAccount(0, .03);
+        assertEquals(0, savingsAccount.getBalance(), delta);
+        assertEquals(.03, savingsAccount.getInterestRate(), delta);
+        assertEquals("0.0 | ", savingsAccount.getTransactionHistory());
         assertEquals(false, savingsAccount.isSuspicious());
         assertEquals(false, savingsAccount.isFrozen());
 
@@ -492,11 +486,6 @@ public class AccountTest {
         savingsAccount = new SavingsAccount(.01, .03);
         savingsAccount.accrewInterest();
         assertEquals(.01, savingsAccount.getBalance(), delta);
-
-        // balance 0 -boundary case
-        savingsAccount = new SavingsAccount(0, .03);
-        savingsAccount.accrewInterest();
-        assertEquals(0, savingsAccount.getBalance(), delta);
 
         // interestRate .01 -boundary case
         savingsAccount = new SavingsAccount(100, .01);
