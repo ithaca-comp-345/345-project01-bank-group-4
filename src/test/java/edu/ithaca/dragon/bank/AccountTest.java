@@ -10,9 +10,11 @@ public class AccountTest {
     public void withdrawTest() {
         double delta = .001;
 
-        // VALID
+        Account account;
 
-        Account account = new CheckingAccount(200);
+        // VALID
+        // withdraw integer
+        account = new CheckingAccount(200);
         account.withdraw(100);
         assertEquals(100, account.getBalance(), delta);
         assertEquals("w 100.0 | ", account.getTransactionHistory());
@@ -22,6 +24,12 @@ public class AccountTest {
         account.withdraw(200);
         assertEquals(0, account.getBalance(), delta);
         assertEquals("w 200.0 | ", account.getTransactionHistory());
+
+        // withdraw float
+        account = new CheckingAccount(15.75);
+        account.withdraw(13);
+        assertEquals(2.75, account.getBalance(), delta);
+        assertEquals("w 13.0 | ", account.getTransactionHistory());
 
         // withdraw float leaving 0 -boundary case
         account = new CheckingAccount(115.42);
@@ -53,13 +61,16 @@ public class AccountTest {
         assertEquals(0, account.getBalance(), delta);
         assertEquals("w 0.01 | ", account.getTransactionHistory());
 
-
         // INVALID
-
-        // withdraw negative amount
+        // withdraw negative integer amount
         final CheckingAccount a = new CheckingAccount(200);
         assertThrows(IllegalArgumentException.class, () -> a.withdraw(-100));
         assertEquals(200, a.getBalance(), delta);
+
+        // withdraw negative float amount
+        final CheckingAccount b = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> b.withdraw(-10.20));
+        assertEquals(200, b.getBalance(), delta);
 
         // withdraw -.01 -boundary case
         final CheckingAccount c = new CheckingAccount(200);
@@ -76,19 +87,138 @@ public class AccountTest {
         assertThrows(IllegalArgumentException.class, () -> e.withdraw(200.01));
         assertEquals(200, e.getBalance(), delta);
 
-        // withdraw amount decimal place > 2
+        // withdraw float component decimal place > 2
+        final CheckingAccount f = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> f.withdraw(.248));
+        assertEquals(200, f.getBalance(), delta);
+
+        // withdraw integer and float component decimal place > 2
         final CheckingAccount g = new CheckingAccount(200);
         assertThrows(IllegalArgumentException.class, () -> g.withdraw(20.091));
         assertEquals(200, g.getBalance(), delta);
 
-        // withdraw negative amount decimal place > 2
+        // withdraw negative float component decimal place > 2
         final CheckingAccount h = new CheckingAccount(200);
         assertThrows(IllegalArgumentException.class, () -> h.withdraw(-.009));
         assertEquals(200, h.getBalance(), delta);
+
+        // withdraw negative integer and float component decimal place > 2
+        final CheckingAccount i = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> i.withdraw(-20.1234));
+        assertEquals(200, i.getBalance(), delta);
     }
  
     @Test
     public void depositTest() {
+        double delta = .001;
+
+        Account account;
+
+        // VALID
+        // positive integer component
+        account = new CheckingAccount(200);
+        account.deposit(20);
+        assertEquals(220, account.getBalance(), delta);
+
+        // positive 1 decimal place float component
+        account = new CheckingAccount(200);
+        account.deposit(.5);
+        assertEquals(200.5, account.getBalance(), delta);
+
+        // positive 1 decimal place integer and float component
+        account = new CheckingAccount(200);
+        account.deposit(125.2);
+        assertEquals(325.2, account.getBalance(), delta);
+
+        // positive 2 decimal place float component
+        account = new CheckingAccount(200);
+        account.deposit(.25);
+        assertEquals(200.25, account.getBalance(), delta);
+
+        // positive 2 decimal place integer and float component
+        account = new CheckingAccount(200);
+        account.deposit(88.32);
+        assertEquals(288.32, account.getBalance(), delta);
+
+        // 0 amount -boundary case
+        account = new CheckingAccount(200);
+        account.deposit(0);
+        assertEquals(200, account.getBalance(), delta);
+
+        // .01 amount -boundary case
+        account = new CheckingAccount(200);
+        account.deposit(.01);
+        assertEquals(200.01, account.getBalance(), delta);
+
+
+        // INVALID
+
+        // NEGATIVE
+        // negative integer component
+        final CheckingAccount a = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> a.deposit(-10));
+        assertEquals(200, a.getBalance(), delta);
+
+        // negative 1 place float component
+        final CheckingAccount b = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> b.deposit(-.5));
+        assertEquals(200, b.getBalance(), delta);
+
+        // negative 1 place integer and float component
+        final CheckingAccount c = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> c.deposit(-1.1));
+        assertEquals(200, c.getBalance(), delta);
+
+        // negative 2 place float component
+        final CheckingAccount d = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> d.deposit(-.75));
+        assertEquals(200, d.getBalance(), delta);
+
+        // negative 2 place integer and float component
+        final CheckingAccount e = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> e.deposit(-6.23));
+        assertEquals(200, e.getBalance(), delta);
+
+        // -.01 amount -boundary case
+        final CheckingAccount f = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> f.deposit(-.01));
+        assertEquals(200, f.getBalance(), delta);
+
+
+        // DECIMAL PLACES > 2
+        // decimal place > 2 float component amount
+        final CheckingAccount g = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> g.deposit(.121212121212));
+
+        // 3 decimal place float component amount -boundary case
+        final CheckingAccount h = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> h.deposit(.789));
+
+        // .009 amount -boundary case
+        final CheckingAccount i = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> i.deposit(.009));
+
+        // integer and 3 decimal place float component amount
+        final CheckingAccount j = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> j.deposit(793.539));
+
+
+        // NEGATIVE + DECIMAL PLACES > 2
+        // float component amount
+        final CheckingAccount k = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> k.deposit(-.71828));
+
+        // integer and float component amount
+        final CheckingAccount l = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> l.deposit(-123.4556));
+
+        // -.001 amount -boundary case
+        final CheckingAccount m = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> m.deposit(-.001));
+
+        // -.009 amount -boundary case
+        final CheckingAccount n = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> n.deposit(-.009));
     }
  
     @Test
