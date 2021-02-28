@@ -48,6 +48,12 @@ public abstract class Account {
     }
  
     public void withdraw(double amount) {
+        if (!isAmountValid(amount) || amount > balance) {
+            throw new IllegalArgumentException();
+        } else {
+            balance -= amount;
+            transactionHistory += "w " + amount + " | ";
+        }
     }
  
     public void deposit(double amount) {
