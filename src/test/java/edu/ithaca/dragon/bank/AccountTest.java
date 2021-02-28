@@ -55,14 +55,23 @@ public class AccountTest {
 
         checkingAccount = new CheckingAccount(200);
         assertEquals(200, checkingAccount.getBalance(), delta);
+        assertEquals("", checkingAccount.getTransactionHistory());
+        assertEquals(false, checkingAccount.isSuspicious());
+        assertEquals(false, checkingAccount.isFrozen());
 
         // balance 0 -boundary case
         checkingAccount = new CheckingAccount(0);
         assertEquals(0, checkingAccount.getBalance(), delta);
+        assertEquals("", checkingAccount.getTransactionHistory());
+        assertEquals(false, checkingAccount.isSuspicious());
+        assertEquals(false, checkingAccount.isFrozen());
 
         // balance .01 -boundary case
         checkingAccount = new CheckingAccount(.01);
         assertEquals(.01, checkingAccount.getBalance(), delta);
+        assertEquals("", checkingAccount.getTransactionHistory());
+        assertEquals(false, checkingAccount.isSuspicious());
+        assertEquals(false, checkingAccount.isFrozen());
 
 
         // INVALID BALANCES
