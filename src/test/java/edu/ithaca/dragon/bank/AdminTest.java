@@ -21,18 +21,22 @@ public class AdminTest {
         assertThrows(NullPointerException.class, () -> new Admin(null));
     }
   
+    // System Test
     @Test
     public void checkOverallAmountTest() {
     }
  
+    // System Test
     @Test
     public void checkSuspiciousActivityTest() {
     }
  
+    // System Test
     @Test
     public void setSuspiciousTest() {
     }
  
+    // System Test
     @Test
     public void setFrozenTest() {
     }
