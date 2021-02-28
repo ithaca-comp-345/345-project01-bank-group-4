@@ -36,9 +36,11 @@ public abstract class Account {
     }
  
     public void setSuspicious(boolean suspicious) {
+        this.suspicious = suspicious;
     }
  
     public void setFrozen(boolean frozen) {
+        this.frozen = frozen;
     }
  
     private boolean isAmountValid(double amount) {
