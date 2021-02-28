@@ -9,15 +9,15 @@ public class BankController {
     }
  
     public Map<Integer, Account> getAccounts() {
-        return null;
+        return accounts;
     }
  
     public Account retrieveAccount(int accountId) {
-        return null;
+        return accounts.get(accountId);
     }
  
     public double checkBalance(int accountId) {
-        return -1;
+        return accounts.get(accountId).getBalance();
     }
  
     public void withdraw(int accountId, double amount) {
@@ -30,7 +30,7 @@ public class BankController {
     }
  
     public String retrieveTransactionHistory(int accountId) {
-        return null;
+        return accounts.get(accountId).getTransactionHistory();
     }
  
     public int createChecking(double balance) {
@@ -42,6 +42,7 @@ public class BankController {
     }
  
     public void closeAccount(int accountId) {
+        accounts.remove(accountId);
     }
  
     public double checkOverallAmount() {
@@ -56,7 +57,7 @@ public class BankController {
     }
 
     public boolean isSuspicious(int accountId){
-        return false;
+        return accounts.get(accountId).suspicious;
     }
  
     public void setFrozen(int accountId, boolean frozen) {
