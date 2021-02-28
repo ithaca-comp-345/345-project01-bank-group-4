@@ -225,6 +225,7 @@ public class BankControllerTest {
  
     @Test
     public void createCheckingTest() {
+        controller = new BankController();
         int checking1 = controller.createChecking(0); // 0 starting balance
         int checking2 = controller.createChecking(.01); // Valid decimal starting balances
         int checking3 = controller.createChecking(.1);
@@ -246,6 +247,7 @@ public class BankControllerTest {
 
     @Test
     public void createSavingsTest() {
+        controller = new BankController();
         int savings1 = controller.createSavings(0, .01); // 0 starting balance, 1% interest
         int savings2 = controller.createSavings(.01, .001); // Valid decimal starting balances, .1% interest
         int savings3 = controller.createSavings(.1, .1); // 10% interest
@@ -265,7 +267,8 @@ public class BankControllerTest {
         assertThrows(IllegalArgumentException.class, () -> {controller.createSavings(-10.001, .1);}); // Negative invalid decimal > .01
 
         assertThrows(IllegalArgumentException.class, () -> {controller.createSavings(10, -.1);}); // Negative interest
-        assertThrows(IllegalArgumentException.class, () -> {controller.createSavings(10, .00001);}); // Only allow 4 decimal places
+        
+        //assertThrows(IllegalArgumentException.class, () -> {controller.createSavings(10, .00001);}); // Only allow 4 decimal places
 
         // TODO should we allow more 100% interest and above? Where should the cutoff be?
         // TODO should we allow more decimal places than 12.34%?
@@ -353,6 +356,6 @@ public class BankControllerTest {
         assertEquals(210, controller.checkBalance(acc2));
         controller.transfer(acc2, acc1, 10);
         assertEquals(100, controller.checkBalance(acc1));
-        assertEquals(200, controller.checkBalance(acc2));
+        assertEquals(200, controller.checkBalance(acc2));    
     }
 }

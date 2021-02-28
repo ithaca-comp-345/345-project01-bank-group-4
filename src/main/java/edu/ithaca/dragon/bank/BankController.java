@@ -1,11 +1,14 @@
 package edu.ithaca.dragon.bank;
- 
+
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Map;
  
 public class BankController {
     private Map<Integer, Account> accounts;
  
     public BankController() {
+        accounts = new HashMap<>();
     }
  
     public Map<Integer, Account> getAccounts() {
@@ -34,11 +37,23 @@ public class BankController {
     }
  
     public int createChecking(double balance) {
-        return -1;
+        if (balance < 0 || BigDecimal.valueOf(balance).scale() > 2){
+            throw new IllegalArgumentException();
+        }
+        Account newAccount = new CheckingAccount(balance);
+        int accountId = (int) (Math.random() * Integer.MAX_VALUE);
+        accounts.put(accountId, newAccount);
+        return accountId;
     }
 
     public int createSavings(double balance, double interest){
-        return -1;
+        if (balance < 0 || BigDecimal.valueOf(balance).scale() > 2 || interest < 0){
+            throw new IllegalArgumentException();
+        }
+        Account newAccount = new SavingsAccount(balance, interest);
+        int accountId = (int) (Math.random() * Integer.MAX_VALUE);
+        accounts.put(accountId, newAccount);
+        return accountId;
     }
  
     public void closeAccount(int accountId) {
