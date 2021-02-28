@@ -34,6 +34,7 @@ public class BankController {
     }
  
     public void deposit(int accountId, double amount) {
+        accounts.get(accountId).deposit(amount);
     }
  
     public void transfer(int accountIdFrom, int accountIdTo, double amount) {

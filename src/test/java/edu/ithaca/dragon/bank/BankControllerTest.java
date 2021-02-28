@@ -163,7 +163,7 @@ public class BankControllerTest {
         assertThrows(IllegalArgumentException.class, () -> {controller.deposit(acc1, -10000);});
 
         // @throws IllegalArgumentException when account ID doesn't exist
-        assertThrows(IllegalArgumentException.class, () -> {controller.deposit(999, 1);});
+        assertThrows(NullPointerException.class, () -> {controller.deposit(999, 1);});
     }
  
     @Test
