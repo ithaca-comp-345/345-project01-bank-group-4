@@ -9,7 +9,7 @@ public abstract class Account {
     protected boolean frozen;
  
     public Account(double balance) {
-        if (!isAmountValid(balance)) {
+        if (!isAmountValid(balance) && balance != 0) {
             throw new IllegalArgumentException();
         } else {
             this.balance = balance;
@@ -46,10 +46,10 @@ public abstract class Account {
     /**
      * returns whether an amount is a valid balance, or withdraw, deposit or transfer amount
      * @param amount value to check
-     * @return true if amount is non-negative and has 2 or fewer decimal places
+     * @return true if amount is positive and has 2 or fewer decimal places
      */
     private boolean isAmountValid(double amount) {
-        return amount >= 0 && BigDecimal.valueOf(amount).scale() <= 2;
+        return amount > 0 && BigDecimal.valueOf(amount).scale() <= 2;
     }
  
     /**
