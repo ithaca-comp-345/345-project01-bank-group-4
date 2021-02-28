@@ -8,6 +8,76 @@ import org.junit.jupiter.api.Test;
 public class AccountTest {    
     @Test
     public void withdrawTest() {
+        double delta = .001;
+
+        // VALID
+
+        Account account = new CheckingAccount(200);
+        account.withdraw(100);
+        assertEquals(100, account.getBalance(), delta);
+
+        // withdraw integer leaving 0 -boundary case
+        account = new CheckingAccount(200);
+        account.withdraw(200);
+        assertEquals(0, account.getBalance(), delta);
+
+        // withdraw float leaving 0 -boundary case
+        account = new CheckingAccount(115.42);
+        account.withdraw(115.42);
+        assertEquals(0, account.getBalance(), delta);
+
+        // withdraw 0 -boundary case
+        account = new CheckingAccount(200);
+        account.withdraw(0);
+        assertEquals(200, account.getBalance(), delta);
+
+        // withdraw 0 leaving 0 -boundary case
+        account = new CheckingAccount(0);
+        account.withdraw(0);
+        assertEquals(0, account.getBalance(), delta);
+
+        // withdraw .01 -boundary case
+        account = new CheckingAccount(200);
+        account.withdraw(.01);
+        assertEquals(199.99, account.getBalance(), delta);
+
+        // withdraw .01 leaving 0 -boundary case
+        account = new CheckingAccount(.01);
+        account.withdraw(.01);
+        assertEquals(0, account.getBalance(), delta);
+
+
+        // INVALID
+
+        // withdraw negative amount
+        final CheckingAccount a = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> a.withdraw(-100));
+        assertEquals(200, a.getBalance(), delta);
+
+        // withdraw -.01 -boundary case
+        final CheckingAccount c = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> c.withdraw(-.01));
+        assertEquals(200, c.getBalance(), delta);
+
+        // withdraw amount greater than balance
+        final CheckingAccount d = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> d.withdraw(300));
+        assertEquals(200, d.getBalance(), delta);
+
+        // withdraw amount .01 greater than balance -boundary case
+        final CheckingAccount e = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> e.withdraw(200.01));
+        assertEquals(200, e.getBalance(), delta);
+
+        // withdraw amount decimal place > 2
+        final CheckingAccount g = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> g.withdraw(20.091));
+        assertEquals(200, g.getBalance(), delta);
+
+        // withdraw negative amount decimal place > 2
+        final CheckingAccount h = new CheckingAccount(200);
+        assertThrows(IllegalArgumentException.class, () -> h.withdraw(-.009));
+        assertEquals(200, h.getBalance(), delta);
     }
  
     @Test
