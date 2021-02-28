@@ -17,5 +17,6 @@ public class SavingsAccount extends Account {
     }
  
     public void accrewInterest() {
+        balance += balance * interestRate;
     }
 }
