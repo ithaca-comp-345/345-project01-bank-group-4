@@ -5,31 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class AccountTest { 
-    @Test
-    public void getBalanceTest() {
-    }
- 
-    @Test
-    public void getTransactionHistoryTest() {
-    }
- 
-    @Test
-    public void isSuspiciousTest() {
-    }
-
-    @Test
-    public void isFrozenTest() {
-    }
- 
-    @Test
-    public void setSuspiciousTest() {
-    }
- 
-    @Test
-    public void setFrozenTest() {
-    }
-  
+public class AccountTest {    
     @Test
     public void withdrawTest() {
     }
@@ -159,10 +135,6 @@ public class AccountTest {
 
         // interestRate -.01 -boundary case
         assertThrows(IllegalArgumentException.class, () -> new SavingsAccount(200, -.01));
-    }
-
-    @Test
-    public void getInterestRateTest() {
     }
 
     @Test
