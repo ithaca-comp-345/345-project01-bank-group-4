@@ -4,10 +4,15 @@ public class Admin {
     private BankController bankController;
  
     public Admin(BankController bankController) {
+        if (bankController == null) {
+            throw new NullPointerException();
+        } else {
+            this.bankController = bankController;
+        }
     }
  
     public BankController getBankController() {
-        return null;
+        return bankController;
     }
  
     public double checkOverallAmount() {
