@@ -13,7 +13,7 @@ public abstract class Account {
             throw new IllegalArgumentException();
         } else {
             this.balance = balance;
-            transactionHistory = "";
+            transactionHistory = balance + " | ";
             suspicious = false;
             frozen = false;
         }
@@ -66,5 +66,13 @@ public abstract class Account {
     }
  
     public void transfer(Account account, double amount) {
+        if (account == null) {
+            throw new NullPointerException();
+        } else if (!isAmountValid(amount) || amount > balance) {
+            throw new IllegalArgumentException();
+        } else {
+            withdraw(amount);
+            account.deposit(amount);
+        }
     }
 }
