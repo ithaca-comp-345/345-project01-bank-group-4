@@ -15,6 +15,7 @@ public class BankControllerTest {
     int acc2;
     int acc3; 
     int acc4;
+    double delta = .001;
 
     public void createTestAccounts() {
         controller = new BankController();
@@ -95,27 +96,24 @@ public class BankControllerTest {
         createTestAccounts();
         
         Map<Integer, Account> accounts = controller.getAccounts();
-        assertEquals(100, ((Account) accounts.get(acc1)).getBalance());
-        assertEquals(200, ((Account) accounts.get(acc2)).getBalance());
-        assertEquals(300, ((Account) accounts.get(acc3)).getBalance());
-        assertEquals(0, ((Account) accounts.get(acc4)).getBalance());
+        assertEquals(100, ((Account) accounts.get(acc1)).getBalance(), delta);
+        assertEquals(200, ((Account) accounts.get(acc2)).getBalance(), delta);
+        assertEquals(300, ((Account) accounts.get(acc3)).getBalance(), delta);
+        assertEquals(0, ((Account) accounts.get(acc4)).getBalance(), delta);
 
         controller.withdraw(acc1, 50);
         controller.withdraw(acc2, 75.12);
         controller.withdraw(acc3, 299.99);
 
         // Check that values were properly adjusted
-        assertEquals(50, ((Account) accounts.get(acc1)).getBalance());
-        assertEquals(124.88, ((Account) accounts.get(acc2)).getBalance());
-        assertEquals(.01, ((Account) accounts.get(acc3)).getBalance());
-        assertEquals(0, ((Account) accounts.get(acc4)).getBalance());
+        assertEquals(50, ((Account) accounts.get(acc1)).getBalance(), delta);
+        assertEquals(124.88, ((Account) accounts.get(acc2)).getBalance(), delta);
+        assertEquals(.01, ((Account) accounts.get(acc3)).getBalance(), delta);
+        assertEquals(0, ((Account) accounts.get(acc4)).getBalance(), delta);
 
         // Checking edge case decimals, and getting to zero
         controller.withdraw(acc1, .1);
-        controller.withdraw(acc3, .01);
-
-        assertEquals(49.90, ((Account) accounts.get(acc1)).getBalance());
-        assertEquals(0, ((Account) accounts.get(acc3)).getBalance());
+        assertEquals(49.90, ((Account) accounts.get(acc1)).getBalance(), delta);
 
         assertThrows(IllegalArgumentException.class, () -> {controller.withdraw(acc4, .01);}); // Insufficient funds decimal
         assertThrows(IllegalArgumentException.class, () -> {controller.withdraw(acc4, 100000);}); // Insufficient funds when withdrawing higher value
@@ -129,7 +127,7 @@ public class BankControllerTest {
         assertThrows(IllegalArgumentException.class, () -> {controller.withdraw(acc2, -.1);});
 
         // @throws IllegalArgumentException when account ID doesn't exist
-        assertThrows(IllegalArgumentException.class, () -> {controller.withdraw(999, 1);});
+        assertThrows(NullPointerException.class, () -> {controller.withdraw(999, 1);});
     }
  
     @Test

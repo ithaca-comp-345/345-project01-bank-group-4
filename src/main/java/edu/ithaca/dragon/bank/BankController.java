@@ -30,6 +30,7 @@ public class BankController {
     }
  
     public void withdraw(int accountId, double amount) {
+        accounts.get(accountId).withdraw(amount);
     }
  
     public void deposit(int accountId, double amount) {
