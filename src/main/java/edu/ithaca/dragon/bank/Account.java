@@ -43,10 +43,19 @@ public abstract class Account {
         this.frozen = frozen;
     }
  
+    /**
+     * returns whether an amount is a valid balance, or withdraw, deposit or transfer amount
+     * @param amount value to check
+     * @return true if amount is non-negative and has 2 or fewer decimal places
+     */
     private boolean isAmountValid(double amount) {
         return amount >= 0 && BigDecimal.valueOf(amount).scale() <= 2;
     }
  
+    /**
+     * withdraws amount from balance if valid, and less or equal to balance
+     * @param amount value to withdraw
+     */
     public void withdraw(double amount) {
         if (!isAmountValid(amount) || amount > balance) {
             throw new IllegalArgumentException();
@@ -56,6 +65,10 @@ public abstract class Account {
         }
     }
  
+    /**
+     * deposits amount into balance if valid
+     * @param amount value to deposit
+     */
     public void deposit(double amount) {
         if (!isAmountValid(amount)) {
             throw new IllegalArgumentException();
@@ -65,6 +78,11 @@ public abstract class Account {
         }
     }
  
+    /**
+     * transfers amount from balance into account's balance if account is non-null, and amount is valid and less or equal to balance
+     * @param account account to transfer to
+     * @param amount value to transfer
+     */
     public void transfer(Account account, double amount) {
         if (account == null) {
             throw new NullPointerException();
