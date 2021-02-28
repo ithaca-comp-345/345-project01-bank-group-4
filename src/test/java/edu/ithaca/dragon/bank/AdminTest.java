@@ -20,11 +20,7 @@ public class AdminTest {
 
         assertThrows(NullPointerException.class, () -> new Admin(null));
     }
- 
-    @Test
-    public void getBankControllerTest() {
-    }
- 
+  
     @Test
     public void checkOverallAmountTest() {
     }
