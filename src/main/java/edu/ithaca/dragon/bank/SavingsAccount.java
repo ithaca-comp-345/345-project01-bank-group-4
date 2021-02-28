@@ -5,13 +5,18 @@ public class SavingsAccount extends Account {
  
     public SavingsAccount(double balance, double interestRate) {
         super(balance);
-        //TODO initialize interestRate
+        if (interestRate < 0) {
+            throw new IllegalArgumentException();
+        } else {
+            this.interestRate = interestRate;
+        }
     }
  
     public double getInterestRate() {
-        return -1;
+        return interestRate;
     }
  
     public void accrewInterest() {
+        balance += balance * interestRate;
     }
 }
