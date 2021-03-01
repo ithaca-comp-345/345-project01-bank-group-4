@@ -91,10 +91,17 @@ public class BankController {
     }
  
     public String checkSuspiciousActivity() {
-        return null;
+        String susString = "Suspicious Accounts: ";
+        for ( Map.Entry<Integer, Account> entry : accounts.entrySet()){
+            if (entry.getValue().isSuspicious()) {
+                susString += entry.getKey() + ", ";
+            }
+        }
+        return susString;
     }
  
     public void setSuspicious(int accountId, boolean suspicious) {
+        accounts.get(accountId).setSuspicious(suspicious);
     }
 
     public boolean isSuspicious(int accountId){
