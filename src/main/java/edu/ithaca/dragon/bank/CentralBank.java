@@ -72,7 +72,7 @@ public class CentralBank {
                 int check = hT.bankController.createChecking(100);
                 hT.confirmCredentials(check);
                 if(action == 1){
-                    hT.checkBalance();
+                    System.out.print("Balance: "+ hT.checkBalance()+ "\n");
                     System.out.println("Pick a banking action: 1) Check Balance, 2) Deposit, 3) Withdaw, 4) Suspicious Activity Check, 5) Freeze Account, 6) Transaction History, 7) Done");
                     action = user.nextInt();
                 }
@@ -80,6 +80,7 @@ public class CentralBank {
                     System.out.println("Enter in deposit amount: ");
                     double deposit = user.nextDouble();
                     hT.deposit(deposit);
+                    System.out.print("Balance: "+ hT.checkBalance()+ "\n");
                     System.out.println("Pick a banking action: 1) Check Balance, 2) Deposit, 3) Withdaw, 4) Suspicious Activity Check, 5) Freeze Account, 6) Transaction History, 7) Done");
                     action = user.nextInt();
                 }
@@ -87,6 +88,7 @@ public class CentralBank {
                     System.out.println("Enter in withdraw amount: ");
                     double withdraw = user.nextDouble();
                     hT.withdraw(withdraw);
+                    System.out.print("Balance: "+ hT.checkBalance()+ "\n");
                     System.out.println("Pick a banking action: 1) Check Balance, 2) Deposit, 3) Withdaw, 4) Suspicious Activity Check, 5) Freeze Account, 6) Transaction History, 7) Done");
                     action = user.nextInt();
                 }
@@ -125,6 +127,7 @@ public class CentralBank {
                 System.out.println("Enter in deposit amount: ");
                 double deposit = user.nextDouble();
                 hT.deposit(deposit);
+                System.out.print("Balance: "+ hT.checkBalance()+ "\n");
                 System.out.println("Pick a banking action: 1) Check Balance, 2) Deposit, 3) Withdaw, 4) Suspicious Activity Check, 5) Freeze Account, 6) Transaction History, 7) Done");
                 action = user.nextInt();
             }
@@ -132,6 +135,7 @@ public class CentralBank {
                 System.out.println("Enter in withdraw amount: ");
                 double withdraw = user.nextDouble();
                 hT.withdraw(withdraw);
+                System.out.print("Balance: "+ hT.checkBalance()+ "\n");
                 System.out.println("Pick a banking action: 1) Check Balance, 2) Deposit, 3) Withdaw, 4) Suspicious Activity Check, 5) Freeze Account, 6) Transaction History, 7) Done");
                 action = user.nextInt();
             }
@@ -171,6 +175,7 @@ public class CentralBank {
             System.out.println("Enter in deposit amount: ");
             double deposit = user.nextDouble();
             aT.deposit(deposit);
+            System.out.print("Balance: "+ aT.checkBalance()+ "\n");
             System.out.println("Pick a banking action: 1) Check Balance, 2) Deposit, 3) Withdaw, 4) Suspicious Activity Check, 5) Freeze Account, 6) Transaction History, 7) Done");
             action = user.nextInt();
         }
@@ -178,6 +183,7 @@ public class CentralBank {
             System.out.println("Enter in withdraw amount: ");
             double withdraw = user.nextDouble();
             aT.withdraw(withdraw);
+            System.out.print("Balance: "+ aT.checkBalance()+ "\n");
             System.out.println("Pick a banking action: 1) Check Balance, 2) Deposit, 3) Withdaw, 4) Suspicious Activity Check, 5) Freeze Account, 6) Transaction History, 7) Done");
             action = user.nextInt();
         }
@@ -216,6 +222,7 @@ public class CentralBank {
             System.out.println("Enter in deposit amount: ");
             double deposit = user.nextDouble();
             aT.deposit(deposit);
+            System.out.print("Balance: "+ aT.checkBalance()+ "\n");
             System.out.println("Pick a banking action: 1) Check Balance, 2) Deposit, 3) Withdaw, 4) Suspicious Activity Check, 5) Freeze Account, 6) Transaction History, 7) Done");
             action = user.nextInt();
         }
@@ -223,6 +230,7 @@ public class CentralBank {
             System.out.println("Enter in withdraw amount: ");
             double withdraw = user.nextDouble();
             aT.withdraw(withdraw);
+            System.out.print("Balance: "+ aT.checkBalance()+ "\n");
             System.out.println("Pick a banking action: 1) Check Balance, 2) Deposit, 3) Withdaw, 4) Suspicious Activity Check, 5) Freeze Account, 6) Transaction History, 7) Done");
             action = user.nextInt();
         }
