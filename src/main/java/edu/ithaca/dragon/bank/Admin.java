@@ -16,7 +16,7 @@ public class Admin {
     }
  
     public double checkOverallAmount() {
-        return -1;
+        return bankController.checkOverallAmount();
     }
  
     public String checkSuspiciousActivity() {
