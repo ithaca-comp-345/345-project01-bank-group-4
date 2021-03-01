@@ -28,5 +28,6 @@ public class Admin {
     }
  
     public void setFrozen(int accountId, boolean frozen) {
+        bankController.setFrozen(accountId, frozen);
     }
 }
