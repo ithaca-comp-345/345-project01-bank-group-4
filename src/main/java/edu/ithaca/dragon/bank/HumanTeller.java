@@ -6,10 +6,19 @@ public class HumanTeller extends Teller {
         super(bankController);
     }
     
-    public int createAccount(char accountType) {
-        return -1;
+    public void createAccount(char accountType) {
+        if (accountType == 'c'){
+            bankController.createChecking(100);
+        }
+        else if (accountType == 's'){
+            bankController.createSavings(100, 0.1);
+        }
+        else{
+            throw new IllegalArgumentException();
+        }
     }
- 
+
     public void closeAccount() {
+        bankController.closeAccount(currAccountId);
     }
 }
