@@ -24,6 +24,22 @@ public class AdminTest {
     // System Test
     @Test
     public void checkOverallAmountTest() {
+        BankController bankController = new BankController();
+        Admin admin = new Admin(bankController);
+
+        // no accounts -boundary case
+        assertEquals(0, admin.checkOverallAmount());
+
+        // 0 amount -boudary case
+        bankController.createSavings(0, .04);
+        assertEquals(0, admin.checkOverallAmount());
+
+        // multiple accounts
+        bankController.createChecking(200);
+        bankController.createSavings(100, .03);
+        bankController.createChecking(300);
+
+        assertEquals(600, admin.checkOverallAmount());
     }
  
     // System Test
