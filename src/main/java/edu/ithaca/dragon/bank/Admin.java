@@ -20,7 +20,7 @@ public class Admin {
     }
  
     public String checkSuspiciousActivity() {
-        return null;
+        return bankController.checkSuspiciousActivity();
     }
  
     public void setSuspicious(int accountId, boolean suspicious) {
