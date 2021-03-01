@@ -45,6 +45,28 @@ public class AdminTest {
     // System Test
     @Test
     public void checkSuspiciousActivityTest() {
+        BankController bankController = new BankController();
+        Admin admin = new Admin(bankController);
+
+        int accountId1, accountId2;
+
+        // no accounts -boundary case
+        assertEquals("Suspicious Accounts: ", admin.checkSuspiciousActivity());
+
+        // no suspicious accounts -boudary case
+        bankController.createSavings(0, .04);
+        assertEquals("Suspicious Accounts: ", admin.checkSuspiciousActivity());
+
+        // 1 suspicious account
+        accountId1 = bankController.createChecking(200);
+        bankController.setSuspicious(accountId1, true);
+        assertEquals("Suspicious Accounts: " + accountId1 + ", ", admin.checkSuspiciousActivity());
+
+        // multiple accounts
+        bankController.createSavings(0, .5);
+        accountId2 = bankController.createChecking(100);
+        bankController.setSuspicious(accountId2, true);
+        assertEquals("Suspicious Accounts: " + accountId1 + ", " + accountId2 + ", ", admin.checkSuspiciousActivity());
     }
  
     // System Test
