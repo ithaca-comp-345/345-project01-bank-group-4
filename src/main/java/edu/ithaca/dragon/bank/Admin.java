@@ -24,6 +24,7 @@ public class Admin {
     }
  
     public void setSuspicious(int accountId, boolean suspicious) {
+        bankController.setSuspicious(accountId, suspicious);
     }
  
     public void setFrozen(int accountId, boolean frozen) {
