@@ -186,12 +186,12 @@ public class BankControllerTest {
         assertEquals(250.1, controller.checkBalance(acc2));
         controller.transfer(acc1, acc2, .01);
         assertEquals(49.89, controller.checkBalance(acc1));
-        assertEquals(250.11, controller.checkBalance(acc2));
+        assertEquals(250.11, controller.checkBalance(acc2), delta);
 
         // Transfer to 0
         controller.transfer(acc1, acc2, 49.89);
-        assertEquals(0, controller.checkBalance(acc1));
-        assertEquals(300, controller.checkBalance(acc2));
+        assertEquals(0, controller.checkBalance(acc1), delta);
+        assertEquals(300, controller.checkBalance(acc2), delta);
 
         assertThrows(IllegalArgumentException.class, () -> {controller.transfer(acc1, acc2, 100);}); // Overdraw acc1
         assertThrows(IllegalArgumentException.class, () -> {controller.transfer(acc1, acc2, -1);}); // Negative transfer
@@ -201,8 +201,8 @@ public class BankControllerTest {
         assertThrows(IllegalArgumentException.class, () -> {controller.transfer(acc1, acc1, 1);}); // Transfer to and from same account
 
         // @throws IllegalArgumentException when account ID doesn't exist
-        assertThrows(IllegalArgumentException.class, () -> {controller.transfer(999, acc2, 10);});
-        assertThrows(IllegalArgumentException.class, () -> {controller.transfer(acc1, 999, 10);});
+        assertThrows(NullPointerException.class, () -> {controller.transfer(999, acc2, 10);});
+        assertThrows(NullPointerException.class, () -> {controller.transfer(acc1, 999, 10);});
 
     }
  

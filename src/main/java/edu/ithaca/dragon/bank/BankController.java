@@ -37,14 +37,18 @@ public class BankController {
     }
  
     public void deposit(int accountId, double amount) {
-        if (accounts.get(accountId).isFrozen() == true) {
+        if (accounts.get(accountId).isFrozen()) {
             throw new IllegalArgumentException();
         }
         accounts.get(accountId).deposit(amount);
     }
  
     public void transfer(int accountIdFrom, int accountIdTo, double amount) {
-        
+        if (accounts.get(accountIdFrom).isFrozen() || accounts.get(accountIdTo).isFrozen() || amount < 0 || BigDecimal.valueOf(amount).scale() > 2) {
+            throw new IllegalArgumentException();
+        }
+        accounts.get(accountIdFrom).withdraw(amount);
+        accounts.get(accountIdTo).deposit(amount);
     }
  
     public String retrieveTransactionHistory(int accountId) {
