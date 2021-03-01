@@ -1,128 +1,135 @@
 package edu.ithaca.dragon.bank;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
-
+ 
 public class BankController {
     private Map<Integer, Account> accounts;
-
+ 
     public BankController() {
         accounts = new HashMap<>();
-        accounts.put(-3, new CheckingAccount(200));
-        accounts.put(-2, new SavingsAccount(200, .1));
     }
-
+ 
     public Map<Integer, Account> getAccounts() {
         return accounts;
     }
-
+ 
     public Account retrieveAccount(int accountId) {
-        Account account = accounts.get(accountId);
-        if (account == null) {
+        if (!accounts.containsKey(accountId)) {
             throw new NullPointerException();
-        } else {
-            return account;
         }
+        return accounts.get(accountId);
     }
-
+ 
     public double checkBalance(int accountId) {
-        Account account = accounts.get(accountId);
-        if (account == null) {
+        if (!accounts.containsKey(accountId)) {
             throw new NullPointerException();
-        } else {
-            return account.getBalance();
         }
+        return accounts.get(accountId).getBalance();
     }
-
+ 
     public void withdraw(int accountId, double amount) {
-        Account account = accounts.get(accountId);
-        if (account == null) {
+        if (!accounts.containsKey(accountId)) {
             throw new NullPointerException();
-        } else {
-            account.withdraw(amount);
         }
-    }
-
-    public void deposit(int accountId, double amount) {
-        Account account = accounts.get(accountId);
-        if (account == null) {
-            throw new NullPointerException();
-        } else {
-            account.deposit(amount);
-        }
-    }
-
-    public void transfer(int accountIdFrom, int accountIdTo, double amount) {
-        Account accountFrom = accounts.get(accountIdFrom);
-        Account accountTo = accounts.get(accountIdTo);
-        if (accountFrom == null || accountTo == null) {
-            throw new NullPointerException();
-        } else {
-            accountFrom.transfer(accountTo, amount);;
-        }
-    }
-
-    public String retrieveTransactionHistory(int accountId) {
-        Account account = accounts.get(accountId);
-        if (account == null) {
-            throw new NullPointerException();
-        } else {
-            return account.getTransactionHistory();
-        }
-    }
-
-    public int createAccount(char accountType) {
-        Account account;
-        if (accountType == 'c') {
-            account = new CheckingAccount(0);
-        } else if (accountType == 's') {
-            account = new SavingsAccount(0, 0);
-        } else {
+        if (accounts.get(accountId).isFrozen() == true) {
             throw new IllegalArgumentException();
         }
+        accounts.get(accountId).withdraw(amount);
+    }
+ 
+    public void deposit(int accountId, double amount) {
+        if (!accounts.containsKey(accountId)) {
+            throw new NullPointerException();
+        }
+        if (accounts.get(accountId).isFrozen()) {
+            throw new IllegalArgumentException();
+        }
+        accounts.get(accountId).deposit(amount);
+    }
+ 
+    public void transfer(int accountIdFrom, int accountIdTo, double amount) {
+        if (!accounts.containsKey(accountIdFrom) || !accounts.containsKey(accountIdTo)) {
+            throw new NullPointerException();
+        }
+        if (accounts.get(accountIdFrom).isFrozen() || accounts.get(accountIdTo).isFrozen() || amount < 0 || BigDecimal.valueOf(amount).scale() > 2) {
+            throw new IllegalArgumentException();
+        }
+        accounts.get(accountIdFrom).transfer(accounts.get(accountIdTo), amount);
+        
+    }
+ 
+    public String retrieveTransactionHistory(int accountId) {
+        if (!accounts.containsKey(accountId)) {
+            throw new NullPointerException();
+        }
+        return accounts.get(accountId).getTransactionHistory();
+    }
+ 
+    public int createChecking(double balance) {
+        if (balance < 0 || BigDecimal.valueOf(balance).scale() > 2){
+            throw new IllegalArgumentException();
+        }
+        Account newAccount = new CheckingAccount(balance);
         int accountId = (int) (Math.random() * Integer.MAX_VALUE);
-        accounts.put(accountId, account);
+        accounts.put(accountId, newAccount);
         return accountId;
     }
 
+    public int createSavings(double balance, double interest){
+        if (balance < 0 || BigDecimal.valueOf(balance).scale() > 2 || interest < 0){
+            throw new IllegalArgumentException();
+        }
+        Account newAccount = new SavingsAccount(balance, interest);
+        int accountId = (int) (Math.random() * Integer.MAX_VALUE);
+        accounts.put(accountId, newAccount);
+        return accountId;
+    }
+ 
     public void closeAccount(int accountId) {
+        if (!accounts.containsKey(accountId)) {
+            throw new NullPointerException();
+        }
         accounts.remove(accountId);
     }
-
+ 
     public double checkOverallAmount() {
-        double sum = 0;
-        for (Account account : accounts.values()) {
-            sum += account.getBalance();
+        double total = 0;
+        for ( Map.Entry<Integer, Account> entry : accounts.entrySet()){
+            total += entry.getValue().getBalance();
         }
-        return sum;
+        return total;
     }
-
+ 
     public String checkSuspiciousActivity() {
-        String report = "";
-        for (Map.Entry<Integer, Account> entry : accounts.entrySet()) {
-            Account account = entry.getValue();
-            if (account.isSuspicious()) {
-                report += entry.getKey() + " : " + account.getTransactionHistory() + "\n";
+        String susString = "Suspicious Accounts: ";
+        for ( Map.Entry<Integer, Account> entry : accounts.entrySet()){
+            if (entry.getValue().isSuspicious()) {
+                susString += entry.getKey() + ", ";
             }
         }
-        return report;
+        return susString;
     }
-
+ 
     public void setSuspicious(int accountId, boolean suspicious) {
-        Account account = accounts.get(accountId);
-        if (account == null) {
+        if (!accounts.containsKey(accountId)) {
             throw new NullPointerException();
-        } else {
-            account.setSuspicious(suspicious);
         }
+        accounts.get(accountId).setSuspicious(suspicious);
     }
 
-    public void setFrozen(int accountId, boolean frozen) {
-        Account account = accounts.get(accountId);
-        if (account == null) {
+    public boolean isSuspicious(int accountId){
+        if (!accounts.containsKey(accountId)) {
             throw new NullPointerException();
-        } else {
-            account.setFrozen(frozen);
         }
+        return accounts.get(accountId).suspicious;
+    }
+ 
+    public void setFrozen(int accountId, boolean frozen) {
+        if (!accounts.containsKey(accountId)) {
+            throw new NullPointerException();
+        }
+        accounts.get(accountId).setFrozen(frozen);
     }
 }

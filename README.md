@@ -5,6 +5,7 @@ Group Members: Erich, Bria, and Connor
 Diagrams Link: https://app.diagrams.net/#G1VO16jbEIsEkxTbwHRNxIBq9ujiounVdt
 
 
-Classes: Central Bank, Administrator, Abstract Account, Account Interface, Abstract Teller, Teller Interface, User
+Classes: Account, CheckingAccount, SavingsAccount, Admin, BankController, CentralBank, Teller, ATM, HumanTeller
+Use Cases: Check credentials (Teller), Freeze/Unfreeze (Admin), Transaction History (Teller), User Account Info (ATM and Teller)
 
-Use Cases: Check credentials, Freeze/Unfreeze, Transaction History, User Account Info
+

@@ -2,7 +2,7 @@ package edu.ithaca.dragon.bank;
 
 import java.util.ArrayList;
 import java.util.List;
-
+ 
 public class CentralBank {
     private BankController bankController;
     private Admin admin;
@@ -40,5 +40,6 @@ public class CentralBank {
         Teller myTeller = centralBank.getTellers().get(1);
         myTeller.confirmCredentials(-2);
         System.out.println(myTeller.checkBalance());
+
     }
 }
