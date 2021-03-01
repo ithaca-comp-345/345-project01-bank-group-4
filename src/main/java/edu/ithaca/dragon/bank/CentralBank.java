@@ -14,9 +14,11 @@ public class CentralBank {
         } else {
             this.bankController = bankController;
             this.admin = admin;
+            //default tellers
             tellers = new ArrayList<>();
             tellers.add(new ATM(bankController));
             tellers.add(new HumanTeller(bankController));
+            
         }
     }
 
