@@ -215,10 +215,10 @@ public class BankControllerTest {
         controller.withdraw(acc1, 29.11);
         controller.deposit(acc1, .01);
 
-        assertEquals("10.0 | d 10.0 | w 29.11 | d 0.01 | ", controller.retrieveTransactionHistory(acc1));
+        assertEquals("100.0 | d 10.0 | w 29.11 | d 0.01 | ", controller.retrieveTransactionHistory(acc1));
 
         // @throws IllegalArgumentException when account ID doesn't exist
-        assertThrows(IllegalArgumentException.class, () -> {controller.retrieveTransactionHistory(999);});
+        assertThrows(NullPointerException.class, () -> {controller.retrieveTransactionHistory(999);});
     }
  
     @Test
