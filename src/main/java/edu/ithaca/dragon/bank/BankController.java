@@ -109,5 +109,6 @@ public class BankController {
     }
  
     public void setFrozen(int accountId, boolean frozen) {
+        accounts.get(accountId).setFrozen(frozen);
     }
 }
