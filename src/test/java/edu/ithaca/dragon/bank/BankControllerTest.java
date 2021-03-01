@@ -309,6 +309,11 @@ public class BankControllerTest {
         //assertEquals("Suspicious Accounts: " + acc1 + ", " + acc4 , controller.checkSuspiciousActivity());
     }
  
+    /** 
+     * checkSuspiciousActivityTest and setSuspiciousTest are not perfect
+     * the order in which the accountIds are returned is random, since hashMaps are not ordered
+     * therefore the for loop iterates through the hashMap in a random order
+     */ 
     @Test
     public void setSuspiciousTest() {
         createTestAccounts();
@@ -320,12 +325,6 @@ public class BankControllerTest {
         // @throws IllegalArgumentException when account ID input does not exist
         assertThrows(NullPointerException.class, () -> controller.setSuspicious(999, true));
     }
-
-    /** 
-     * checkSuspiciousActivityTest and setSuspiciousTest are not perfect
-     * the order in which the accountIds are returned is random, since hashMaps are not ordered
-     * therefore the for loop iterates through the hashMap in a random order
-     */ 
 
     @Test
     public void isSuspiciousTest(){
@@ -343,7 +342,7 @@ public class BankControllerTest {
     public void setFrozenTest() {
         createTestAccounts();
         controller.setFrozen(acc1, true);
-        //@throws AccountFrozenException wehn attempting to withdraw, deposit or transfer
+        //@throws IllegalArgumentException wehn attempting to withdraw, deposit or transfer
         assertThrows(IllegalArgumentException.class, () -> controller.withdraw(acc1, 10));
         assertThrows(IllegalArgumentException.class, () -> controller.deposit(acc1, 10));
         assertThrows(IllegalArgumentException.class, () -> controller.transfer(acc1, acc2, 10));
@@ -360,6 +359,9 @@ public class BankControllerTest {
         assertEquals(210, controller.checkBalance(acc2));
         controller.transfer(acc2, acc1, 10);
         assertEquals(100, controller.checkBalance(acc1));
-        assertEquals(200, controller.checkBalance(acc2));    
+        assertEquals(200, controller.checkBalance(acc2));
+
+        // @throws IllegalArgumentException when account ID input does not exist
+        assertThrows(NullPointerException.class, () -> controller.setFrozen(999, true));    
     }
 }
