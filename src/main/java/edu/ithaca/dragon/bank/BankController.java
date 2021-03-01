@@ -101,14 +101,23 @@ public class BankController {
     }
  
     public void setSuspicious(int accountId, boolean suspicious) {
+        if (!accounts.containsKey(accountId)) {
+            throw new NullPointerException();
+        }
         accounts.get(accountId).setSuspicious(suspicious);
     }
 
     public boolean isSuspicious(int accountId){
+        if (!accounts.containsKey(accountId)) {
+            throw new NullPointerException();
+        }
         return accounts.get(accountId).suspicious;
     }
  
     public void setFrozen(int accountId, boolean frozen) {
+        if (!accounts.containsKey(accountId)) {
+            throw new NullPointerException();
+        }
         accounts.get(accountId).setFrozen(frozen);
     }
 }
