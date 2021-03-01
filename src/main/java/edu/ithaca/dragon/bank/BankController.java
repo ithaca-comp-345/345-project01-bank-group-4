@@ -30,6 +30,9 @@ public class BankController {
     }
  
     public void withdraw(int accountId, double amount) {
+        if (!accounts.containsKey(accountId)) {
+            throw new NullPointerException();
+        }
         if (accounts.get(accountId).isFrozen() == true) {
             throw new IllegalArgumentException();
         }
@@ -37,6 +40,9 @@ public class BankController {
     }
  
     public void deposit(int accountId, double amount) {
+        if (!accounts.containsKey(accountId)) {
+            throw new NullPointerException();
+        }
         if (accounts.get(accountId).isFrozen()) {
             throw new IllegalArgumentException();
         }
@@ -44,6 +50,9 @@ public class BankController {
     }
  
     public void transfer(int accountIdFrom, int accountIdTo, double amount) {
+        if (!accounts.containsKey(accountIdFrom) || !accounts.containsKey(accountIdTo)) {
+            throw new NullPointerException();
+        }
         if (accounts.get(accountIdFrom).isFrozen() || accounts.get(accountIdTo).isFrozen() || amount < 0 || BigDecimal.valueOf(amount).scale() > 2) {
             throw new IllegalArgumentException();
         }
@@ -52,6 +61,9 @@ public class BankController {
     }
  
     public String retrieveTransactionHistory(int accountId) {
+        if (!accounts.containsKey(accountId)) {
+            throw new NullPointerException();
+        }
         return accounts.get(accountId).getTransactionHistory();
     }
  
