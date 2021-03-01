@@ -94,11 +94,13 @@ public class CentralBank {
                 }
                 else if(action == 4){
                     hT.bankController.checkSuspiciousActivity();
+                    System.out.print("Your account "+hT.currAccountId+ " is "+hT.bankController.isSuspicious(hT.currAccountId)+ "\n");
                     System.out.println("Pick a banking action: 1) Check Balance, 2) Deposit, 3) Withdaw, 4) Suspicious Activity Check, 5) Freeze Account, 6) Transaction History, 7) Done");
                     action = user.nextInt();
                 }
                 else if(action == 5){
                     hT.bankController.setFrozen(check, true);
+                    System.out.print("Your account "+hT.currAccountId+ " is "+hT.bankController.retrieveAccount(hT.currAccountId).isFrozen()+"\n");
                     System.out.println("Pick a banking action: 1) Check Balance, 2) Deposit, 3) Withdaw, 4) Suspicious Activity Check, 5) Freeze Account, 6) Transaction History, 7) Done");
                     action = user.nextInt();
                 }
@@ -141,6 +143,7 @@ public class CentralBank {
             }
             else if(action == 4){
                 hT.bankController.checkSuspiciousActivity();
+                System.out.print("Your account "+hT.currAccountId+ " is "+hT.bankController.isSuspicious(hT.currAccountId));
                 System.out.println("Pick a banking action: 1) Check Balance, 2) Deposit, 3) Withdaw, 4) Suspicious Activity Check, 5) Freeze Account, 6) Transaction History, 7) Done");
                 action = user.nextInt();
             }
@@ -189,6 +192,7 @@ public class CentralBank {
         }
         else if(action == 4){
             aT.bankController.checkSuspiciousActivity();
+            System.out.print("Your account "+aT.currAccountId+ " is "+aT.bankController.isSuspicious(aT.currAccountId));
             System.out.println("Pick a banking action: 1) Check Balance, 2) Deposit, 3) Withdaw, 4) Suspicious Activity Check, 5) Freeze Account, 6) Transaction History, 7) Done");
             action = user.nextInt();
         }
