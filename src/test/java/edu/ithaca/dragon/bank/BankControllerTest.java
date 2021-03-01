@@ -291,7 +291,7 @@ public class BankControllerTest {
         assertThrows(IllegalArgumentException.class, () -> controller.checkBalance(acc4));
 
         // @throws IllegalArgumentException when trying to remove an account that doesn't exist
-        assertThrows(IllegalArgumentException.class, () -> controller.closeAccount(999));
+        assertThrows(NullPointerException.class, () -> controller.closeAccount(999));
     }
  
     @Test
@@ -318,7 +318,7 @@ public class BankControllerTest {
         assertEquals("Suspicious Accounts: " + acc1 + ", " + acc4, controller.checkSuspiciousActivity());
 
         // @throws IllegalArgumentException when account ID input does not exist
-        assertThrows(IllegalArgumentException.class, () -> controller.setSuspicious(999, true));
+        assertThrows(NullPointerException.class, () -> controller.setSuspicious(999, true));
     }
 
     @Test
@@ -330,7 +330,7 @@ public class BankControllerTest {
         assertFalse(controller.isSuspicious(acc1));
 
         // @throws IllegalArgumentException when account ID input does not exist
-        assertThrows(IllegalArgumentException.class, () -> controller.isSuspicious(999));
+        assertThrows(NullPointerException.class, () -> controller.isSuspicious(999));
     }
  
     @Test
