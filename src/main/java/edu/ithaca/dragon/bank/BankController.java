@@ -83,7 +83,11 @@ public class BankController {
     }
  
     public double checkOverallAmount() {
-        return -1;
+        double total = 0;
+        for ( Map.Entry<Integer, Account> entry : accounts.entrySet()){
+            total += entry.getValue().getBalance();
+        }
+        return total;
     }
  
     public String checkSuspiciousActivity() {
