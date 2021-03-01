@@ -1,11 +1,10 @@
 package edu.ithaca.dragon.bank;
 
-import java.util.List;
 
 public abstract class Teller {
     protected BankController bankController;
     protected int currAccountId;
-    protected List<String> history;
+    protected String history;
  
     public Teller(BankController bankController) {
         if (bankController == null) {
@@ -13,8 +12,7 @@ public abstract class Teller {
         } 
         else {
             this.bankController = bankController;
-            confirmCredentials(bankController.);
-            history.add("Account History: "+ bankController.retrieveTransactionHistory(currAccountId)+"\n");
+            this.history = "";
         }
     }   
  
@@ -41,24 +39,32 @@ public abstract class Teller {
     public void withdraw(double amount) {
         Account acc = bankController.retrieveAccount(currAccountId);
         acc.withdraw(amount);
-        history.add("W " + amount +" | ");
+        history+="w " + amount + " | ";
     }
  
     public void deposit(double amount) {
         Account acc = bankController.retrieveAccount(currAccountId);
         acc.deposit(amount);
-        history.add("D " + amount +" | ");
+        history+="d " + amount + " | ";
     }
  
     public void transfer(int accountIdTo, double amount) {
         Account acc1 = bankController.retrieveAccount(currAccountId);
         Account acc2 = bankController.retrieveAccount(accountIdTo);
-        acc1.transfer(acc2, amount);
-        history.add("T " + amount + "from "+ acc1+ "to"+ acc2 +" | ");
+        acc1.withdraw(amount);
+        acc2.deposit(amount);
+        history += "t " + amount + " from  "+ " to "+ acc2 + " | ";
+        
 
     }
  
     public String retrieveTransactionHistory() {
-        return history.toString();
+        if (history == null || history == ""){
+            System.out.println("Transaction History for "+ bankController.retrieveAccount(currAccountId)+ "\n"+ "No History");
+        }
+        else{
+        System.out.println("Transaction History for "+ bankController.retrieveAccount(currAccountId)+ "\n"+ bankController.retrieveAccount(currAccountId).getTransactionHistory() +history);
+        }
+        return history;
     }
 }

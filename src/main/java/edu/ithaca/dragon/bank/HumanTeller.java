@@ -2,8 +2,8 @@ package edu.ithaca.dragon.bank;
  
 public class HumanTeller extends Teller {
  
-    public HumanTeller(BankController bankController,int accountId) {
-        super(bankController,accountId);
+    public HumanTeller(BankController bankController) {
+        super(bankController);
     }
     
     public void createAccount(char accountType) {
