@@ -103,5 +103,11 @@ public class AdminTest {
     // System Test
     @Test
     public void setFrozenTest() {
+        BankController bankController = new BankController();
+        Admin admin = new Admin(bankController);
+
+        int accountId1 = bankController.createSavings(0, .04);
+        admin.setFrozen(accountId1, true);
+        assertTrue(bankController.retrieveAccount(accountId1).isFrozen());
     }
 }
