@@ -47,8 +47,8 @@ public class BankController {
         if (accounts.get(accountIdFrom).isFrozen() || accounts.get(accountIdTo).isFrozen() || amount < 0 || BigDecimal.valueOf(amount).scale() > 2) {
             throw new IllegalArgumentException();
         }
-        accounts.get(accountIdFrom).withdraw(amount);
-        accounts.get(accountIdTo).deposit(amount);
+        accounts.get(accountIdFrom).transfer(accounts.get(accountIdTo), amount);
+        
     }
  
     public String retrieveTransactionHistory(int accountId) {
