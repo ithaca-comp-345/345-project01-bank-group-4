@@ -76,6 +76,9 @@ public class BankController {
     }
  
     public void closeAccount(int accountId) {
+        if (!accounts.containsKey(accountId)) {
+            throw new NullPointerException();
+        }
         accounts.remove(accountId);
     }
  

@@ -281,14 +281,14 @@ public class BankControllerTest {
         assertEquals(200, controller.checkBalance(acc2));
         assertEquals(300, controller.checkBalance(acc3));
         assertEquals(0, controller.checkBalance(acc4));
-        assertThrows(IllegalArgumentException.class, () -> controller.checkBalance(acc1));
+        assertThrows(NullPointerException.class, () -> controller.checkBalance(acc1));
 
         controller.closeAccount(acc4);
         // Check that other accounts are unaffected
         assertEquals(200, controller.checkBalance(acc2));
         assertEquals(300, controller.checkBalance(acc3));
-        assertThrows(IllegalArgumentException.class, () -> controller.checkBalance(acc1));
-        assertThrows(IllegalArgumentException.class, () -> controller.checkBalance(acc4));
+        assertThrows(NullPointerException.class, () -> controller.checkBalance(acc1));
+        assertThrows(NullPointerException.class, () -> controller.checkBalance(acc4));
 
         // @throws IllegalArgumentException when trying to remove an account that doesn't exist
         assertThrows(NullPointerException.class, () -> controller.closeAccount(999));
